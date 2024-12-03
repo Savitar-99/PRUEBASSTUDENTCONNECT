@@ -1,6 +1,6 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LoginForm } from './components/auth/LoginForm';
+import { RegisterStudent } from './components/auth/RegisterStudent';
 import { StudentDashboard } from './components/dashboard/StudentDashboard';
 import { TeacherDashboard } from './components/dashboard/TeacherDashboard';
 
@@ -20,6 +20,7 @@ function App() {
                 </div>
               </div>
             } />
+            <Route path="/register-student" element={<RegisterStudent />} />
             <Route path="/student-dashboard" element={<StudentDashboard />} />
             <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
           </Routes>
