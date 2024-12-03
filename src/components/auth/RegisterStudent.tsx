@@ -29,7 +29,8 @@ export function RegisterStudent() {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#F26F63] focus:ring focus:ring-[#F26F63] focus:ring-opacity-50"
+       className="w-full py-2 px-4 border-2 border-[#F26F63] rounded-md shadow-sm text-[#F26F63] bg-transparent hover:bg-[#F26F63] hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F26F63] transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
+ 
             required
           />
         </div>
@@ -42,7 +43,8 @@ export function RegisterStudent() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#F26F63] focus:ring focus:ring-[#F26F63] focus:ring-opacity-50"
+            className="w-full py-1 px-1 border border-transparent rounded-md shadow-sm text-white focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-[#F26F63]"
+
             required
           />
         </div>
@@ -55,7 +57,8 @@ export function RegisterStudent() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#F26F63] focus:ring focus:ring-[#F26F63] focus:ring-opacity-50"
+            className="w-full py-1 px-1 border border-transparent rounded-md shadow-sm text-white focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-[#F26F63]"
+
             required
           />
         </div>
