@@ -28,10 +28,15 @@ export function LoginForm() {
   };
 
   return (
-    <div className="w-full p-8 bg-white rounded-lg shadow-lg">
+    <div className="w-full p-8 bg-white rounded-lg shadow-lg ">
       <div className="flex flex-col items-center mb-8">
-        <UserCircle2 className="w-16 h-16 text-[#F26F63] mb-4" />
+      <img
+                  src="/assets/logo.png"
+                  alt="Logo de StudentConnect"
+                  className="w-32 h-auto"
+                />
         <h2 className="text-2xl font-bold text-gray-900">Iniciar Sesión</h2>
+        
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -43,7 +48,7 @@ export function LoginForm() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#F26F63] focus:ring focus:ring-[#F26F63] focus:ring-opacity-50"
+            className="mt-1 block w-full rounded-md border-2 border-[#F26F63] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#F26F63] focus:border-[#F26F63]"
             required
           />
         </div>
@@ -56,7 +61,7 @@ export function LoginForm() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#F26F63] focus:ring focus:ring-[#F26F63] focus:ring-opacity-50"
+            className="mt-1 block w-full rounded-md border-2 border-[#F26F63] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#F26F63] focus:border-[#F26F63]"
             required
           />
         </div>
