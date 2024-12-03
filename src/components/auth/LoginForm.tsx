@@ -28,15 +28,14 @@ export function LoginForm() {
   };
 
   return (
-    <div className="w-full p-8 bg-white rounded-lg shadow-lg ">
+    <div className="w-full p-8 bg-white rounded-lg shadow-lg">
       <div className="flex flex-col items-center mb-8">
-      <img
-                  src="/assets/logo.png"
-                  alt="Logo de StudentConnect"
-                  className="w-32 h-auto"
-                />
+        <img
+          src="/assets/logo.png"
+          alt="Logo de StudentConnect"
+          className="w-32 h-auto"
+        />
         <h2 className="text-2xl font-bold text-gray-900">Iniciar Sesión</h2>
-        
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -73,6 +72,18 @@ export function LoginForm() {
           Iniciar Sesión
         </button>
       </form>
+
+      <div className="mt-4 text-center">
+        <p className="text-sm text-gray-600">
+          ¿No tienes una cuenta?{' '}
+          <a
+            href="/register-student"
+            className="text-[#F26F63] hover:text-[#e25d51] font-medium"
+          >
+            Regístrate como estudiante
+          </a>
+        </p>
+      </div>
     </div>
   );
 }
