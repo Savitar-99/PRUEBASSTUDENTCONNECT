@@ -2,14 +2,27 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserCircle2 } from 'lucide-react';
 
+const studentEmails = ['student@example.com'];
+const teacherEmails = ['teacher@example.com'];
+
 export function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState<'student' | 'teacher'>('student');
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    let userType: 'student' | 'teacher' = 'student';
+
+    if (teacherEmails.includes(email)) {
+      userType = 'teacher';
+    } else if (studentEmails.includes(email)) {
+      userType = 'student';
+    } else {
+      alert('Correo electrónico no reconocido');
+      return;
+    }
+
     // En una implementación real, aquí iría la autenticación
     navigate(`/${userType}-dashboard`);
   };
@@ -22,20 +35,6 @@ export function LoginForm() {
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Tipo de Usuario
-          </label>
-          <select
-            value={userType}
-            onChange={(e) => setUserType(e.target.value as 'student' | 'teacher')}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#F26F63] focus:ring focus:ring-[#F26F63] focus:ring-opacity-50"
-          >
-            <option value="student">Estudiante</option>
-            <option value="teacher">Profesor</option>
-          </select>
-        </div>
-
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Correo Electrónico
