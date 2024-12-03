@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserCircle2 } from 'lucide-react';
+import { FaLinkedin } from 'react-icons/fa';
 
 const studentEmails = ['student@example.com'];
 const teacherEmails = ['teacher@example.com'];
@@ -31,9 +32,9 @@ export function LoginForm() {
     <div className="w-full p-8 bg-white rounded-lg shadow-lg">
       <div className="flex flex-col items-center mb-8">
         <img
-          src="/assets/logo.png"
+          src="/assets/logo.png" // Asegúrate de que esta ruta sea correcta
           alt="Logo de StudentConnect"
-          className="w-32 h-auto"
+          className="w-32 h-auto mb-4"
         />
         <h2 className="text-2xl font-bold text-gray-900">Iniciar Sesión</h2>
       </div>
@@ -83,6 +84,21 @@ export function LoginForm() {
             Regístrate como estudiante
           </a>
         </p>
+      </div>
+
+      <div className="mt-8 text-center">
+        <h3 className="text-lg font-semibold text-gray-900">Creado por:</h3>
+        <div className="flex justify-center space-x-4 mt-4">
+          <a href="https://www.linkedin.com/in/andreianegrului/" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin className="w-8 h-8 text-[#0077B5]" />
+          </a>
+          <a href="https://www.linkedin.com/in/joel-galán-pérez-910724335/" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin className="w-8 h-8 text-[#0077B5]" />
+          </a>
+          <a href="https://www.linkedin.com/in/usuario3" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin className="w-8 h-8 text-[#0077B5]" />
+          </a>
+        </div>
       </div>
     </div>
   );
