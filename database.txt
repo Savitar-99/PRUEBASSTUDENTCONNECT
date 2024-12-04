@@ -1,0 +1,63 @@
+-- Crear la base de datos
+CREATE DATABASE sistema_academico;
+USE sistema_academico;
+
+-- Crear tabla rol
+CREATE TABLE rol (
+    id_rol INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_rol VARCHAR(50) NOT NULL
+);
+
+-- Crear tabla persona
+CREATE TABLE persona (
+    id_persona INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    email VARCHAR(150),
+    telefono VARCHAR(15),
+    id_rol INT,
+    FOREIGN KEY (id_rol) REFERENCES rol(id_rol)
+);
+
+-- Crear tabla asignatura
+CREATE TABLE asignatura (
+    id_asignatura INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_asignatura VARCHAR(100) NOT NULL,
+    descripcion TEXT
+);
+
+-- Crear tabla curso
+CREATE TABLE curso (
+    id_curso INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_curso VARCHAR(100) NOT NULL,
+    nivel VARCHAR(50)
+);
+
+-- Crear tabla asignatura_has_curso
+CREATE TABLE asignatura_has_curso (
+    asignatura_id_asignatura INT,
+    curso_id_curso INT,
+    PRIMARY KEY (asignatura_id_asignatura, curso_id_curso),
+    FOREIGN KEY (asignatura_id_asignatura) REFERENCES asignatura(id_asignatura),
+    FOREIGN KEY (curso_id_curso) REFERENCES curso(id_curso)
+);
+
+-- Crear tabla asistencia
+CREATE TABLE asistencia (
+    id_asistencia INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE NOT NULL,
+    estado ENUM('Presente', 'Ausente', 'Tarde', 'Justificado') NOT NULL,
+    id_asignatura INT,
+    FOREIGN KEY (id_asignatura) REFERENCES asignatura(id_asignatura)
+);
+
+-- Crear tabla persona_asignatura
+CREATE TABLE persona_asignatura (
+    id_persona INT,
+    id_asignatura INT,
+    asistencia_id_asistencia INT,
+    PRIMARY KEY (id_persona, id_asignatura),
+    FOREIGN KEY (id_persona) REFERENCES persona(id_persona),
+    FOREIGN KEY (id_asignatura) REFERENCES asignatura(id_asignatura),
+    FOREIGN KEY (asistencia_id_asistencia) REFERENCES asistencia(id_asistencia)
+);
