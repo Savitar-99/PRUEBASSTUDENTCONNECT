@@ -100,9 +100,9 @@ export function LoginForm() {
             </a>
           </div>
           <div className="text-center">
-            <a href="https://www.linkedin.com/in/usuario3" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center">
+            <a href="https://www.linkedin.com/in/lausierrajaramillo/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center">
               <FaLinkedin className="w-8 h-8 text-[#0077B5]" />
-              <p className="text-sm text-gray-600">Usuario 3</p>
+              <p className="text-sm text-gray-600">Laura Sierra Jaramillo</p>
             </a>
           </div>
         </div>

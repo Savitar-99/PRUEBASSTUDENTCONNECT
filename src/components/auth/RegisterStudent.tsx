@@ -32,7 +32,7 @@ export function RegisterStudent() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full p-4 bg-gray-100 min-h-screen">
+    <div className="flex flex-col items-center w-full p-4">
       {/* Título */}
       <h1 className="text-3xl font-bold mb-6 text-center">
         <span className="text-white">Crea tu cuenta en </span>
