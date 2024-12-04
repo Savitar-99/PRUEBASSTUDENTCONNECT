@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserCircle2 } from 'lucide-react';
 import { FaLinkedin } from 'react-icons/fa';
 
 const studentEmails = ['student@example.com'];
@@ -86,20 +85,36 @@ export function LoginForm() {
         </p>
       </div>
 
-      <div className="mt-8 text-center">
-        <h3 className="text-lg font-semibold text-gray-900">Creado por:</h3>
-        <div className="flex justify-center space-x-4 mt-4">
-          <a href="https://www.linkedin.com/in/andreianegrului/" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin className="w-8 h-8 text-[#0077B5]" />
-          </a>
-          <a href="https://www.linkedin.com/in/joel-galán-pérez-910724335/" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin className="w-8 h-8 text-[#0077B5]" />
-          </a>
-          <a href="https://www.linkedin.com/in/usuario3" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin className="w-8 h-8 text-[#0077B5]" />
-          </a>
+      <footer className="mt-8 text-center">
+        <div className="flex justify-center space-x-4 mb-4">
+          <div className="text-center">
+            <a href="https://www.linkedin.com/in/andreianegrului/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center">
+              <FaLinkedin className="w-8 h-8 text-[#0077B5]" />
+              <p className="text-sm text-gray-600">Andrei Anegrului</p>
+            </a>
+          </div>
+          <div className="text-center">
+            <a href="https://www.linkedin.com/in/joel-galán-pérez-910724335/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center">
+              <FaLinkedin className="w-8 h-8 text-[#0077B5]" />
+              <p className="text-sm text-gray-600">Joel Galán Pérez</p>
+            </a>
+          </div>
+          <div className="text-center">
+            <a href="https://www.linkedin.com/in/usuario3" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center">
+              <FaLinkedin className="w-8 h-8 text-[#0077B5]" />
+              <p className="text-sm text-gray-600">Usuario 3</p>
+            </a>
+          </div>
         </div>
-      </div>
+        <p className="text-sm text-gray-600">
+          &copy; 2024 StudentConnect. Todos los derechos reservados.
+        </p>
+        <p className="text-sm text-gray-600">
+          <a href="https://www.termsfeed.com/live/ab0a645e-e0bb-4ded-9a1e-6c9b2ac069fb" target="_blank" rel="noopener noreferrer" className="hover:text-[#F26F63]">Términos y Condiciones</a> | <a href="https://www.termsfeed.com/live/a8917dd5-e7a1-43a2-a823-47bc9e89f718" target="_blank" rel="noopener noreferrer" className="hover:text-[#F26F63]">Política de Privacidad</a>
+        </p>
+      </footer>
     </div>
   );
 }
+
+// Per fer el privacy template: https://www.termsfeed.com/blog/sample-privacy-policy-template/
