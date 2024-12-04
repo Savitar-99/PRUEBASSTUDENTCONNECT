@@ -3,6 +3,7 @@ import { LoginForm } from './components/auth/LoginForm';
 import { RegisterStudent } from './components/auth/RegisterStudent';
 import { StudentDashboard } from './components/dashboard/StudentDashboard';
 import { TeacherDashboard } from './components/dashboard/TeacherDashboard';
+import { AboutUs } from './components/AboutUs';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/register-student" element={<RegisterStudent />} />
             <Route path="/student-dashboard" element={<StudentDashboard />} />
             <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
+            <Route path="/about-us" element={<AboutUs />} />
           </Routes>
         </div>
       </div>
