@@ -41,7 +41,7 @@ export function RegisterStudent() {
 
       {/* Formulario */}
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold text-gray-900 text-center mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">
           Registro de Estudiante
         </h2>
 
@@ -53,7 +53,7 @@ export function RegisterStudent() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full py-2 px-3 border border-gray-300 rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none"
+              className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
               required
             />
           </div>
@@ -65,7 +65,8 @@ export function RegisterStudent() {
               type="text"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="w-full py-2 px-3 border border-gray-300 rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none"
+              className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
+
               required
             />
           </div>
@@ -77,7 +78,7 @@ export function RegisterStudent() {
               type="tel"
               value={phone}
               onChange={handlePhoneChange}
-              className="w-full py-2 px-3 border border-gray-300 rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none"
+              className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
               pattern="\d{9}"
               title="El número de teléfono debe contener exactamente 9 dígitos."
               required
@@ -91,7 +92,7 @@ export function RegisterStudent() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full py-2 px-3 border border-gray-300 rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none"
+              className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
               required
             />
           </div>
@@ -103,7 +104,7 @@ export function RegisterStudent() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full py-2 px-3 border border-gray-300 rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none"
+              className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
               required
             />
           </div>
