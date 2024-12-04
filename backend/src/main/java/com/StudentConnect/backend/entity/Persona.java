@@ -1,4 +1,4 @@
-package com.example.backend.entity;
+package com.StudentConnect.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -25,4 +25,6 @@ public class Persona {
     @ManyToOne
     @JoinColumn(name = "idRol", nullable = false)
     private Rol rol;
-}
+    
+    
+ }

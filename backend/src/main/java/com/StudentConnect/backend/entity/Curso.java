@@ -1,4 +1,4 @@
-package com.example.backend.entity;
+package com.StudentConnect.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -15,4 +15,6 @@ public class Curso {
 
     @Column(length = 50)
     private String nivel;
+    
+
 }

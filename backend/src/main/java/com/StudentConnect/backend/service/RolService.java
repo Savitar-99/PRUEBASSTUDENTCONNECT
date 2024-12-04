@@ -1,12 +1,13 @@
-package com.example.backend.service;
-
-import com.example.backend.entity.Rol;
-import com.example.backend.repository.RolRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package com.StudentConnect.backend.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.StudentConnect.backend.entity.Rol;
+import com.StudentConnect.backend.repository.RolRepository;
 
 @Service
 public class RolService {

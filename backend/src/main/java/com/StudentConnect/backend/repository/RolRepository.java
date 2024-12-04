@@ -1,6 +1,6 @@
-package com.example.backend.repository;
+package com.StudentConnect.backend.repository;
 
-import com.example.backend.entity.Rol;
+import com.StudentConnect.backend.entity.Rol;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RolRepository extends JpaRepository<Rol, Integer> {

@@ -1,4 +1,4 @@
-package com.example.backend.entity;
+package com.StudentConnect.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -12,4 +12,6 @@ public class Rol {
 
     @Column(nullable = false, length = 50)
     private String nombreRol;
+    
+ 
 }

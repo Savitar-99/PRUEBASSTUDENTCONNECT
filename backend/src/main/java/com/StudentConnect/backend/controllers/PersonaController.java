@@ -1,7 +1,7 @@
-package com.example.backend.controller;
+package com.StudentConnect.backend.controllers;
 
-import com.example.backend.entity.Persona;
-import com.example.backend.service.PersonaService;
+import com.StudentConnect.backend.entity.Persona;
+import com.StudentConnect.backend.service.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

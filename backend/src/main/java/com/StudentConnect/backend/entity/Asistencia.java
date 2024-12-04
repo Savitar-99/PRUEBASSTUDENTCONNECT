@@ -1,9 +1,16 @@
-package com.example.backend.entity;
+package com.StudentConnect.backend.entity;
 
-import jakarta.persistence.*;
-import lombok.Data;
 
 import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
 
 @Entity
 @Data
