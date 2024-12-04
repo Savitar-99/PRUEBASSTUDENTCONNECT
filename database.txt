@@ -1,3 +1,7 @@
+jdbc:mysql://127.0.0.1:3306/?user=root
+
+
+
 -- Crear la base de datos
 CREATE DATABASE sistema_academico;
 USE sistema_academico;
