@@ -1,57 +1,53 @@
 import React from 'react';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isToday, isSameMonth } from 'date-fns';
-import { es } from 'date-fns/locale';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import { Attendance } from '..//../types';
 
 interface CalendarProps {
-  selectedDate: Date;
-  onDateSelect: (date: Date) => void;
-  attendanceData: { date: string; present: boolean }[];
+  attendances: Attendance[];
 }
 
-export function Calendar({ selectedDate, onDateSelect, attendanceData }: CalendarProps) {
-  const monthStart = startOfMonth(selectedDate);
-  const monthEnd = endOfMonth(selectedDate);
-  const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
-
-  const getAttendanceStatus = (date: Date) => {
-    const dateStr = format(date, 'yyyy-MM-dd');
-    return attendanceData.find(record => record.date === dateStr)?.present;
-  };
+export const Calendar: React.FC<CalendarProps> = ({ attendances }) => {
+  const events = attendances.map(attendance => ({
+    date: attendance.date,
+    backgroundColor: 
+      attendance.status === 'present' ? '#22c55e' :
+      attendance.status === 'justified' ? '#f97316' : '#ef4444',
+    display: 'background',
+    classNames: ['attendance-event']
+  }));
 
   return (
-    <div className="bg-white rounded-lg shadow">
-      <div className="p-4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold">
-            {format(selectedDate, 'MMMM yyyy', { locale: es })}
-          </h2>
+    <div className="bg-white p-4 rounded-lg shadow-md">
+      <div className="mb-4 flex gap-4 text-sm">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-[#22c55e]"></div>
+          <span>Presente</span>
         </div>
-        <div className="grid grid-cols-7 gap-1">
-          {['D', 'L', 'M', 'X', 'J', 'V', 'S'].map(day => (
-            <div key={day} className="text-center text-sm font-medium text-gray-500">
-              {day}
-            </div>
-          ))}
-          {days.map(day => {
-            const attendance = getAttendanceStatus(day);
-            return (
-              <button
-                key={day.toString()}
-                onClick={() => onDateSelect(day)}
-                className={`
-                  p-2 text-sm rounded-full
-                  ${isToday(day) ? 'border-2 border-[#F26F63]' : ''}
-                  ${!isSameMonth(day, selectedDate) ? 'text-gray-400' : ''}
-                  ${attendance === true ? 'bg-green-100' : ''}
-                  ${attendance === false ? 'bg-red-100' : ''}
-                `}
-              >
-                {format(day, 'd')}
-              </button>
-            );
-          })}
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-[#ef4444]"></div>
+          <span>Ausente</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-[#f97316]"></div>
+          <span>Justificado</span>
         </div>
       </div>
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView="dayGridMonth"
+        events={events}
+        headerToolbar={{
+          left: 'prev,next',
+          center: 'title',
+          right: 'today'
+        }}
+        locale="es"
+        height="auto"
+        dayCellClassNames="hover:bg-gray-50"
+        nowIndicator={true}
+        dayMaxEvents={true}
+      />
     </div>
   );
-}
+};

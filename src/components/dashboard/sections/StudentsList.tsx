@@ -7,6 +7,9 @@ interface Student {
   id: string;
   name: string;
   image: string;
+  email: string;
+  phoneNumber: string;
+  courses: string[];
   attendance: {
     date: string;
     present: boolean;
@@ -22,6 +25,9 @@ export function StudentsList() {
       id: '1',
       name: 'Juan Pérez',
       image: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400',
+      email: 'juan.perez@email.com',
+      phoneNumber: '123-456-7890',
+      courses: ['Matemáticas', 'Lengua', 'Historia'],
       attendance: [
         { date: '2024-03-01', present: true },
         { date: '2024-03-02', present: true },
@@ -32,6 +38,9 @@ export function StudentsList() {
       id: '2',
       name: 'María García',
       image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
+      email: 'maria.garcia@email.com',
+      phoneNumber: '234-567-8901',
+      courses: ['Física', 'Química', 'Biología'],
       attendance: [
         { date: '2024-03-01', present: true },
         { date: '2024-03-02', present: false },
@@ -68,6 +77,16 @@ export function StudentsList() {
           
           {selectedStudent?.id === student.id && (
             <div className="mt-4">
+              {/* Información adicional sobre el estudiante */}
+              <div className="mb-2">
+                <strong>Email:</strong> {student.email}
+              </div>
+              <div className="mb-2">
+                <strong>Teléfono:</strong> {student.phoneNumber}
+              </div>
+              <div className="mb-2">
+                <strong>Cursos:</strong> {student.courses.join(', ')}
+              </div>
               <Calendar
                 selectedDate={selectedDate}
                 onDateSelect={(date) => {

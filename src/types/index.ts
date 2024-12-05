@@ -32,3 +32,13 @@ export interface AcademicGoal {
   objectives: string[];
   targetInstitution?: string;
 }
+
+export interface Subject {
+  name: string;
+  level: number;
+  progress: number;
+}
+export interface Attendance {
+  date: string;
+  status: 'present' | 'absent' | 'justified';
+}
