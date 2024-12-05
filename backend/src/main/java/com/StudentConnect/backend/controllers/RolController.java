@@ -1,7 +1,7 @@
-package com.example.backend.controller;
+package com.StudentConnect.backend.controllers;
 
-import com.example.backend.entity.Rol;
-import com.example.backend.service.RolService;
+import com.StudentConnect.backend.entity.Rol;
+import com.StudentConnect.backend.service.RolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

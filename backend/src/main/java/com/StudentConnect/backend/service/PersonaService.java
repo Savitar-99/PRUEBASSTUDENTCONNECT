@@ -1,12 +1,13 @@
-package com.example.backend.service;
-
-import com.example.backend.entity.Persona;
-import com.example.backend.repository.PersonaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package com.StudentConnect.backend.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.StudentConnect.backend.entity.Persona;
+import com.StudentConnect.backend.repository.PersonaRepository;
 
 @Service
 public class PersonaService {

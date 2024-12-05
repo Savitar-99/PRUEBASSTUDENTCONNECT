@@ -1,12 +1,13 @@
-package com.example.backend.service;
-
-import com.example.backend.entity.Asignatura;
-import com.example.backend.repository.AsignaturaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package com.StudentConnect.backend.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.StudentConnect.backend.entity.Asignatura;
+import com.StudentConnect.backend.repository.AsignaturaRepository;
 
 @Service
 public class AsignaturaService {
