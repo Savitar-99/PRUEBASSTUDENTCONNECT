@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LoginForm } from './components/auth/LoginForm';
 import { RegisterStudent } from './components/auth/RegisterStudent';
+import { PasswordRecovery } from './components/auth/PasswordRecovery';
 import { StudentDashboard } from './components/dashboard/StudentDashboard';
 import { ProfessorDashboard } from './components/dashboard/ProfessorDashboard';
 import { AboutUs } from './components/AboutUs';
@@ -27,6 +28,9 @@ function App() {
             <Route path="/student-dashboard" element={<StudentDashboard />} />
             <Route path="/teacher-dashboard" element={<ProfessorDashboard />} />
             <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/password-recovery" element={<PasswordRecovery />} />
+            
+
           </Routes>
         </div>
       </div>
