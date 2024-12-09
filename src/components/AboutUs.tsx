@@ -17,7 +17,7 @@ export function AboutUs() {
             </a>
           </div>
           <div className="text-center">
-            <a href="https://www.linkedin.com/in/joel-galán-pérez-910724335/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center">
+            <a href="https://www.linkedin.com/in/joelgalanperez" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center">
               <FaLinkedin className="w-8 h-8 text-[#0077B5]" />
               <p className="text-sm text-gray-600">Joel Galán Pérez</p>
             </a>

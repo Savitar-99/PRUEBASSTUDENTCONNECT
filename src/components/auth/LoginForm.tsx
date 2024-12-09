@@ -85,6 +85,18 @@ export function LoginForm() {
         </p>
       </div>
 
+      <div className="mt-4 text-center">
+        <p className="text-sm text-gray-600">
+          ¿No recuerdas tu contraseña?{' '}
+          <a
+            href="/password-recovery"
+            className="text-[#F26F63] hover:text-[#e25d51] font-medium"
+          >
+            Cambiar la contraseña 
+          </a>
+        </p>
+      </div>
+
       <footer className="mt-8 text-center">
         <p className="text-sm text-gray-600">
           &copy; 2024 StudentConnect. Todos los derechos reservados.

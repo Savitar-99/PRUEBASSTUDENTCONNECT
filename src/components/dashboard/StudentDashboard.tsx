@@ -1,9 +1,10 @@
 import React from 'react';
-import { Calendar } from '../calendar/Calendar';
-import { PerformanceChart } from '../Performance/PerformanceChart';
-import { UserProfile } from '../profile/UserProfile';
-import { AcademicGuidance } from '../Academic/AcademicGuidance';
-import { LogoutButton } from '../Logout/LogoutButton';
+import { Calendar } from '../dashboard/sections/Calendar';
+import { PerformanceChart } from '../dashboard/sections/PerformanceChart';
+import { UserProfile } from '../dashboard/sections/UserProfile';
+import { AcademicGuidance } from '../dashboard/sections/AcademicGuidance';
+import { LogoutButton } from '../dashboard/sections/LogoutButton';
+import { FaLinkedin } from 'react-icons/fa'; // Importamos el ícono de LinkedIn
 
 const mockUser = {
   id: '1',
@@ -49,9 +50,19 @@ export const StudentDashboard: React.FC = () => {
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">
-            Bienvenido, {mockUser.name} {mockUser.lastName}
-          </h1>
+          {/* Contenedor del logo y la bienvenida alineados a la izquierda */}
+          <div className="flex items-center space-x-4">
+            <img
+              src="/assets/logo.png" // Asegúrate de que esta ruta sea correcta
+              alt="Logo de StudentConnect"
+              className="w-16 h-auto"
+            />
+            <h1 className="text-3xl font-bold text-gray-800">
+              Bienvenido a tu perfil, <span className="text-[#F26F63]">{mockUser.name} {mockUser.lastName}</span>
+            </h1>
+          </div>
+
+          {/* Botón de cerrar sesión alineado a la derecha */}
           <LogoutButton />
         </div>
 
@@ -72,6 +83,23 @@ export const StudentDashboard: React.FC = () => {
             />
           </div>
         </div>
+
+        {/* Footer con enlaces a LinkedIn */}
+        <footer className="mt-12 py-6 text-[#F26F63] text-center">
+          <p className="mb-4">Síguenos en LinkedIn</p>
+          <div className="flex justify-center space-x-6">
+            <a href="https://www.linkedin.com/in/joelgalanperez" target="_blank" rel="noopener noreferrer">
+              <FaLinkedin size={30} className="text-[#F26F63]" />
+            </a>
+            <a href="https://www.linkedin.com/in/andreianegrului/" target="_blank" rel="noopener noreferrer">
+              <FaLinkedin size={30} className="text-[#F26F63]" />
+            </a>
+            <a href="https://www.linkedin.com/in/lausierrajaramillo/" target="_blank" rel="noopener noreferrer">
+              <FaLinkedin size={30} className="text-[#F26F63]" />
+            </a>
+          </div>
+          <p className="mt-4">© 2024 StudentConnect - Todos los derechos reservados.</p>
+        </footer>
       </div>
     </div>
   );

@@ -159,6 +159,12 @@ export function PasswordRecovery() {
             </button>
           </form>
         )}
+        {/* Botón para volver al inicio */}
+        <button
+          onClick={() => navigate('/')}
+          className="w-full mt-4 py-2 px-4 text-[#F26F63] border border-[#F26F63] rounded-md hover:bg-[#F26F63] hover:text-white transition duration-200">
+          Volver al Inicio de Sesión
+        </button>
       </div>
     </div>
   );

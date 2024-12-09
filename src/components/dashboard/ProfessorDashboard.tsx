@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { StudentSearch } from '../../search/StudentSearch';
-import { Calendar } from '../calendar/Calendar';
-import { PerformanceChart } from '../Performance/PerformanceChart';
-import { UserProfile } from '../profile/UserProfile';
-import { AcademicGuidance } from '../Academic/AcademicGuidance';
-import { LogoutButton } from '../Logout/LogoutButton';
+import { StudentSearch } from '../dashboard/sections/StudentSearch';
+import { Calendar } from '../dashboard/sections/Calendar';
+import { PerformanceChart } from '../dashboard/sections/PerformanceChart';
+import { UserProfile } from '../dashboard/sections/UserProfile';
+import { AcademicGuidance } from '../dashboard/sections/AcademicGuidance';
+import { LogoutButton } from '../dashboard/sections/LogoutButton';
 import { User } from '../../types';
+import { FaLinkedin } from 'react-icons/fa'; // Importamos el ícono de LinkedIn
 
 const mockProfessor: User = {
   id: 'p1',
@@ -76,14 +77,25 @@ export const ProfessorDashboard: React.FC = () => {
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">
-            Bienvenido, {mockProfessor.name} {mockProfessor.lastName}
-          </h1>
+          {/* Contenedor del logo y la bienvenida alineados a la izquierda */}
+          <div className="flex items-center space-x-4">
+            <img
+              src="/assets/logo.png" // Asegúrate de que esta ruta sea correcta
+              alt="Logo de StudentConnect"
+              className="w-16 h-auto" // Tamaño ajustado del logo
+            />
+            <h1 className="text-3xl font-bold text-studentconnectRed">
+              Bienvenido a StudentConnect {mockProfessor.name} {mockProfessor.lastName}
+            </h1>
+          </div>
+
+          {/* Botón de cerrar sesión alineado a la derecha */}
           <LogoutButton />
         </div>
 
+        {/* Aquí ya no es necesario que esté condicionado por el estudiante */}
         <div className="mb-8">
-          <UserProfile user={mockProfessor} />
+          <UserProfile user={mockProfessor} editable={true} /> {/* Perfil editable del profesor */}
         </div>
 
         <div className="mb-8">
@@ -111,6 +123,22 @@ export const ProfessorDashboard: React.FC = () => {
           </div>
         )}
       </div>
+              {/* Footer con enlaces a LinkedIn */}
+              <footer className="mt-12 py-6 text-[#F26F63] text-center">
+          <p className="mb-4">Síguenos en LinkedIn</p>
+          <div className="flex justify-center space-x-6">
+            <a href="https://www.linkedin.com/in/joelgalanperez" target="_blank" rel="noopener noreferrer">
+              <FaLinkedin size={30} className="text-[#F26F63]" />
+            </a>
+            <a href="https://www.linkedin.com/in/andreianegrului/" target="_blank" rel="noopener noreferrer">
+              <FaLinkedin size={30} className="text-[#F26F63]" />
+            </a>
+            <a href="https://www.linkedin.com/in/lausierrajaramillo/" target="_blank" rel="noopener noreferrer">
+              <FaLinkedin size={30} className="text-[#F26F63]" />
+            </a>
+          </div>
+          <p className="mt-4">© 2024 StudentConnect - Todos los derechos reservados.</p>
+        </footer>
     </div>
   );
 };
