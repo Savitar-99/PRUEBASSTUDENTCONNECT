@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// Función para normalizar el texto y eliminar los acentos
+const removeAccents = (str: string) => {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+};
 
 // Datos simulados para usuarios registrados (reemplázalos con una API o base de datos en producción)
 const users = [
@@ -8,53 +15,66 @@ const users = [
 ];
 
 export function PasswordRecovery() {
-  const [step, setStep] = useState<'verify' | 'reset'>('verify'); // Paso actual
-  const [fullName, setFullName] = useState('');
+  const [step, setStep] = useState<'verify' | 'reset' | 'completed'>('verify'); // Agregado el paso 'completed'
   const [email, setEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [fullName, setFullName] = useState(''); // Agregado para capturar el nombre completo
+  const [isLoading, setIsLoading] = useState(false); // Estado para manejar carga
+  const [passwordChanged, setPasswordChanged] = useState(false); // Estado para manejar si la contraseña fue cambiada
   const navigate = useNavigate();
 
   const handleVerify = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Verificar usuario (case-insensitive)
+    // Verificar correo electrónico y nombre completo (case-insensitive y sin acentos)
+    const normalizedFullName = removeAccents(fullName.trim());
+    const normalizedEmail = email.trim().toLowerCase();
+
     const user = users.find(
       (user) =>
-        user.fullName.toLowerCase() === fullName.trim().toLowerCase() &&
-        user.email.toLowerCase() === email.trim().toLowerCase()
+        removeAccents(user.fullName.toLowerCase()) === normalizedFullName &&
+        user.email.toLowerCase() === normalizedEmail
     );
 
     if (user) {
       setStep('reset');
-      setError('');
+      toast.success('Correo electrónico y nombre verificados con éxito!');
     } else {
-      setError('Nombre completo o correo electrónico no válido.');
+      toast.error('Correo electrónico o nombre completo no válidos.');
     }
   };
 
-  const handlePasswordReset = (e: React.FormEvent) => {
+  const handlePasswordReset = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (newPassword !== confirmPassword) {
-      setError('Las contraseñas no coinciden.');
+      toast.error('Las contraseñas no coinciden.');
       return;
     }
 
-    // Actualizar contraseña (simulado)
-    const userIndex = users.findIndex(
-      (user) =>
-        user.fullName.toLowerCase() === fullName.trim().toLowerCase() &&
-        user.email.toLowerCase() === email.trim().toLowerCase()
-    );
-    if (userIndex !== -1) {
-      users[userIndex].password = newPassword;
-      setSuccessMessage('¡Contraseña actualizada exitosamente!');
-      setError('');
-      setTimeout(() => navigate('/'), 3000); // Redirigir al inicio después de 3 segundos
+    // Verificar que la contraseña tenga al menos 6 caracteres
+    if (newPassword.length < 6) {
+      toast.error('La contraseña debe tener al menos 6 caracteres.');
+      return;
     }
+
+    setIsLoading(true); // Iniciar carga
+
+    // Simulación de una solicitud de cambio de contraseña
+    setTimeout(() => {
+      const userIndex = users.findIndex(
+        (user) => user.email.toLowerCase() === email.trim().toLowerCase()
+      );
+      if (userIndex !== -1) {
+        users[userIndex].password = newPassword;
+        toast.success('¡Contraseña actualizada exitosamente!');
+        setPasswordChanged(true); // Cambiar el estado a 'true' cuando la contraseña se haya cambiado
+        setStep('completed'); // Cambiar el paso a 'completed'
+      }
+
+      setIsLoading(false); // Terminar carga
+    }, 2000); // Simular un tiempo de espera de 2 segundos para la actualización de la contraseña
   };
 
   return (
@@ -67,18 +87,11 @@ export function PasswordRecovery() {
 
       {/* Contenedor */}
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">
-          {step === 'verify' ? 'Verificar Identidad' : 'Restablecer Contraseña'}
+        <h2 className="text-xl font-bold text-gray-900 text-center mb-6">
+          {step === 'verify' && 'Verificar Nombre y Correo Electrónico'}
+          {step === 'reset' && 'Restablecer Contraseña'}
+          {step === 'completed' && '¡Contraseña Cambiada Correctamente!'}
         </h2>
-
-        {error && (
-          <p className="mb-4 text-sm text-red-500 text-center">{error}</p>
-        )}
-        {successMessage && (
-          <p className="mb-4 text-sm text-green-500 text-center">
-            {successMessage}
-          </p>
-        )}
 
         {step === 'verify' && (
           <form onSubmit={handleVerify} className="space-y-4">
@@ -115,7 +128,7 @@ export function PasswordRecovery() {
               type="submit"
               className="w-full py-2 px-4 bg-[#F26F63] text-white rounded-md shadow hover:bg-[#e25d51] focus:ring-2 focus:ring-offset-2 focus:ring-[#F26F63] transition duration-200"
             >
-              Verificar Identidad
+              Verificar Nombre y Correo Electrónico  
             </button>
           </form>
         )}
@@ -153,19 +166,28 @@ export function PasswordRecovery() {
             {/* Botón para Restablecer Contraseña */}
             <button
               type="submit"
-              className="w-full py-2 px-4 bg-[#F26F63] text-white rounded-md shadow hover:bg-[#e25d51] focus:ring-2 focus:ring-offset-2 focus:ring-[#F26F63] transition duration-200"
+              className={`w-full py-2 px-4 bg-[#F26F63] text-white rounded-md shadow hover:bg-[#e25d51] focus:ring-2 focus:ring-offset-2 focus:ring-[#F26F63] transition duration-200 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={isLoading} // Deshabilitar el botón si está cargando
             >
-              Restablecer Contraseña
+              {isLoading ? 'Cargando...' : 'Restablecer Contraseña'}
             </button>
           </form>
         )}
-        {/* Botón para volver al inicio */}
-        <button
-          onClick={() => navigate('/')}
-          className="w-full mt-4 py-2 px-4 text-[#F26F63] border border-[#F26F63] rounded-md hover:bg-[#F26F63] hover:text-white transition duration-200">
-          Volver al Inicio de Sesión
-        </button>
+
+        {step === 'completed' && (
+          <div className="text-center">
+            <button
+              onClick={() => navigate('/')}
+              className="mt-4 py-2 px-4 bg-[#F26F63] text-white rounded-md shadow hover:bg-[#e25d51] transition duration-200"
+            >
+              Volver al Inicio de Sesión
+            </button>
+          </div>
+        )}
       </div>
+
+      {/* Contenedor de Toast */}
+      <ToastContainer />
     </div>
   );
 }

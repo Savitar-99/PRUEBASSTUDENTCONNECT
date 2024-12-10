@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify'; // Importar toast para notificaciones
 
 export function RegisterStudent() {
   const [email, setEmail] = useState('');
@@ -14,11 +15,18 @@ export function RegisterStudent() {
 
     // Validación adicional de longitud (opcional)
     if (phone.length !== 9) {
-      alert('El número de teléfono debe tener exactamente 9 dígitos.');
+      toast.error('El número de teléfono debe tener exactamente 9 dígitos.'); // Notificación de error
+      return;
+    }
+
+    // Validación de contraseñas (si fuera necesario)
+    if (password.length < 6) {
+      toast.error('La contraseña debe tener al menos 6 caracteres.');
       return;
     }
 
     console.log('Registrando estudiante:', { email, password, name, lastName, phone });
+    toast.success('¡Registro exitoso! Bienvenido a StudentConnect.'); // Notificación de éxito
     navigate('/student-dashboard');
   };
 
@@ -66,7 +74,6 @@ export function RegisterStudent() {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
-
               required
             />
           </div>

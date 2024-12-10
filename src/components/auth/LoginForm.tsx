@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaLinkedin } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 const studentEmails = ['student@example.com'];
 const teacherEmails = ['teacher@example.com'];
@@ -16,14 +17,15 @@ export function LoginForm() {
 
     if (teacherEmails.includes(email)) {
       userType = 'teacher';
+      toast.success('Inicio de sesión exitoso como Profesor.');
     } else if (studentEmails.includes(email)) {
       userType = 'student';
+      toast.success('Inicio de sesión exitoso como Estudiante.');
     } else {
-      alert('Correo electrónico no reconocido');
+      toast.error('Correo electrónico no reconocido. Por favor, inténtalo de nuevo.');
       return;
     }
 
-    // En una implementación real, aquí iría la autenticación
     navigate(`/${userType}-dashboard`);
   };
 
@@ -31,13 +33,13 @@ export function LoginForm() {
     <div className="w-full p-8 bg-white rounded-lg shadow-lg">
       <div className="flex flex-col items-center mb-8">
         <img
-          src="/assets/logo.png" // Asegúrate de que esta ruta sea correcta
+          src="/assets/logo.png"
           alt="Logo de StudentConnect"
           className="w-32 h-auto mb-4"
         />
         <h2 className="text-2xl font-bold text-gray-900">Iniciar Sesión</h2>
       </div>
-      
+
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-700">
@@ -51,7 +53,7 @@ export function LoginForm() {
             required
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Contraseña
@@ -111,5 +113,3 @@ export function LoginForm() {
     </div>
   );
 }
-
-// Per fer el privacy template: https://www.termsfeed.com/blog/sample-privacy-policy-template/
