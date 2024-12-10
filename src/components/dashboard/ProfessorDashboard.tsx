@@ -51,7 +51,8 @@ const mockGuidancePosts = [
     comments: [
       {
         id: '1',
-        content: 'Excelente elección. Con tus calificaciones en matemáticas, podrías considerar Ingeniería Informática.',
+        content:
+          'Excelente elección. Con tus calificaciones en matemáticas, podrías considerar Ingeniería Informática.',
         author: 'Prof. Martínez',
         date: '2024-03-02',
       },
@@ -65,7 +66,7 @@ export const ProfessorDashboard: React.FC = () => {
 
   const handleSearch = (query: string) => {
     const filtered = mockStudents.filter(
-      student =>
+      (student) =>
         student.name.toLowerCase().includes(query.toLowerCase()) ||
         student.lastName.toLowerCase().includes(query.toLowerCase()) ||
         student.email.toLowerCase().includes(query.toLowerCase())
@@ -85,7 +86,8 @@ export const ProfessorDashboard: React.FC = () => {
               className="w-16 h-auto" // Tamaño ajustado del logo
             />
             <h1 className="text-3xl font-bold text-studentconnectRed">
-              Bienvenido a StudentConnect {mockProfessor.name} {mockProfessor.lastName}
+            Bienvenido a tu perfil, <span className="text-[#F26F63]">{mockProfessor.name} {mockProfessor.lastName}</span>
+
             </h1>
           </div>
 
@@ -123,22 +125,6 @@ export const ProfessorDashboard: React.FC = () => {
           </div>
         )}
       </div>
-              {/* Footer con enlaces a LinkedIn */}
-              <footer className="mt-12 py-6 text-[#F26F63] text-center">
-          <p className="mb-4">Síguenos en LinkedIn</p>
-          <div className="flex justify-center space-x-6">
-            <a href="https://www.linkedin.com/in/joelgalanperez" target="_blank" rel="noopener noreferrer">
-              <FaLinkedin size={30} className="text-[#F26F63]" />
-            </a>
-            <a href="https://www.linkedin.com/in/andreianegrului/" target="_blank" rel="noopener noreferrer">
-              <FaLinkedin size={30} className="text-[#F26F63]" />
-            </a>
-            <a href="https://www.linkedin.com/in/lausierrajaramillo/" target="_blank" rel="noopener noreferrer">
-              <FaLinkedin size={30} className="text-[#F26F63]" />
-            </a>
-          </div>
-          <p className="mt-4">© 2024 StudentConnect - Todos los derechos reservados.</p>
-        </footer>
     </div>
   );
 };

@@ -83,24 +83,7 @@ export const StudentDashboard: React.FC = () => {
             />
           </div>
         </div>
-
-        {/* Footer con enlaces a LinkedIn */}
-        <footer className="mt-12 py-6 text-[#F26F63] text-center">
-          <p className="mb-4">Síguenos en LinkedIn</p>
-          <div className="flex justify-center space-x-6">
-            <a href="https://www.linkedin.com/in/joelgalanperez" target="_blank" rel="noopener noreferrer">
-              <FaLinkedin size={30} className="text-[#F26F63]" />
-            </a>
-            <a href="https://www.linkedin.com/in/andreianegrului/" target="_blank" rel="noopener noreferrer">
-              <FaLinkedin size={30} className="text-[#F26F63]" />
-            </a>
-            <a href="https://www.linkedin.com/in/lausierrajaramillo/" target="_blank" rel="noopener noreferrer">
-              <FaLinkedin size={30} className="text-[#F26F63]" />
-            </a>
-          </div>
-          <p className="mt-4">© 2024 StudentConnect - Todos los derechos reservados.</p>
-        </footer>
-      </div>
+        </div>
     </div>
   );
 };
