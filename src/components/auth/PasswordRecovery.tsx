@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { motion } from 'framer-motion'; // Importar framer-motion
 
 // Función para normalizar el texto y eliminar los acentos
 const removeAccents = (str: string) => {
@@ -79,24 +80,43 @@ export function PasswordRecovery() {
 
   return (
     <div className="flex flex-col items-center w-full p-4">
-      {/* Título */}
-      <h1 className="text-3xl font-bold mb-6 text-center">
+      {/* Título con animación */}
+      <motion.h1
+        className="text-3xl font-bold mb-6 text-center"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <span className="text-white">Recupera tu cuenta en </span>
         <span className="text-[#F26F63]">StudentConnect</span>
-      </h1>
+      </motion.h1>
 
-      {/* Contenedor */}
-      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-xl font-bold text-gray-900 text-center mb-6">
+      {/* Contenedor con animación */}
+      <motion.div
+        className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.h2
+          className="text-xl font-bold text-gray-900 text-center mb-6"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           {step === 'verify' && 'Verificar Nombre y Correo Electrónico'}
           {step === 'reset' && 'Restablecer Contraseña'}
           {step === 'completed' && '¡Contraseña Cambiada Correctamente!'}
-        </h2>
+        </motion.h2>
 
         {step === 'verify' && (
           <form onSubmit={handleVerify} className="space-y-4">
-            {/* Nombre Completo */}
-            <div>
+            {/* Nombre Completo con animación */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               <label className="block text-sm font-medium text-gray-700">
                 Nombre Completo
               </label>
@@ -107,10 +127,14 @@ export function PasswordRecovery() {
                 className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none"
                 required
               />
-            </div>
+            </motion.div>
 
-            {/* Correo Electrónico */}
-            <div>
+            {/* Correo Electrónico con animación */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               <label className="block text-sm font-medium text-gray-700">
                 Correo Electrónico Asociado
               </label>
@@ -121,22 +145,29 @@ export function PasswordRecovery() {
                 className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none"
                 required
               />
-            </div>
+            </motion.div>
 
-            {/* Botón para Verificar */}
-            <button
+            {/* Botón para Verificar con animación */}
+            <motion.button
               type="submit"
               className="w-full py-2 px-4 bg-[#F26F63] text-white rounded-md shadow hover:bg-[#e25d51] focus:ring-2 focus:ring-offset-2 focus:ring-[#F26F63] transition duration-200"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
             >
-              Verificar Nombre y Correo Electrónico  
-            </button>
+              Verificar Nombre y Correo Electrónico
+            </motion.button>
           </form>
         )}
 
         {step === 'reset' && (
           <form onSubmit={handlePasswordReset} className="space-y-4">
-            {/* Nueva Contraseña */}
-            <div>
+            {/* Nueva Contraseña con animación */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               <label className="block text-sm font-medium text-gray-700">
                 Nueva Contraseña
               </label>
@@ -147,10 +178,14 @@ export function PasswordRecovery() {
                 className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none"
                 required
               />
-            </div>
+            </motion.div>
 
-            {/* Confirmar Contraseña */}
-            <div>
+            {/* Confirmar Contraseña con animación */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               <label className="block text-sm font-medium text-gray-700">
                 Confirmar Contraseña
               </label>
@@ -161,30 +196,46 @@ export function PasswordRecovery() {
                 className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none"
                 required
               />
-            </div>
+            </motion.div>
 
-            {/* Botón para Restablecer Contraseña */}
-            <button
+            {/* Botón para Restablecer Contraseña con animación */}
+            <motion.button
               type="submit"
               className={`w-full py-2 px-4 bg-[#F26F63] text-white rounded-md shadow hover:bg-[#e25d51] focus:ring-2 focus:ring-offset-2 focus:ring-[#F26F63] transition duration-200 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
               disabled={isLoading} // Deshabilitar el botón si está cargando
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
             >
               {isLoading ? 'Cargando...' : 'Restablecer Contraseña'}
-            </button>
+            </motion.button>
           </form>
         )}
-
+        <motion.button
+          onClick={() => navigate('/')}
+          className="w-full mt-4 py-2 px-4 text-[#F26F63] border border-[#F26F63] rounded-md hover:bg-[#F26F63] hover:text-white transition duration-200"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          Volver al Inicio de Sesión
+        </motion.button>
         {step === 'completed' && (
           <div className="text-center">
-            <button
+            <motion.button
               onClick={() => navigate('/')}
               className="mt-4 py-2 px-4 bg-[#F26F63] text-white rounded-md shadow hover:bg-[#e25d51] transition duration-200"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
             >
               Volver al Inicio de Sesión
-            </button>
+            </motion.button>
           </div>
+          
         )}
-      </div>
+      </motion.div>
+      
 
       {/* Contenedor de Toast */}
       <ToastContainer />
