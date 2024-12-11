@@ -4,7 +4,6 @@ import { PerformanceChart } from '../dashboard/sections/PerformanceChart';
 import { UserProfile } from '../dashboard/sections/UserProfile';
 import { AcademicGuidance } from '../dashboard/sections/AcademicGuidance';
 import { LogoutButton } from '../dashboard/sections/LogoutButton';
-import { FaLinkedin } from 'react-icons/fa'; // Importamos el ícono de LinkedIn
 import { motion } from 'framer-motion'; // Importamos framer-motion
 
 const mockUser = {

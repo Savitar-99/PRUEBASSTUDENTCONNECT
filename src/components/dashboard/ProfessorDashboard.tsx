@@ -6,7 +6,6 @@ import { UserProfile } from '../dashboard/sections/UserProfile';
 import { AcademicGuidance } from '../dashboard/sections/AcademicGuidance';
 import { LogoutButton } from '../dashboard/sections/LogoutButton';
 import { User } from '../../types';
-import { FaLinkedin } from 'react-icons/fa'; // Importamos el ícono de LinkedIn
 import { motion } from 'framer-motion'; // Importamos framer-motion
 
 const mockProfessor: User = {
