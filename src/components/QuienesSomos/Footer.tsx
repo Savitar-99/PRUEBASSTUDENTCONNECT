@@ -23,13 +23,13 @@ export function Footer() {
           
           <div className="flex justify-center space-x-4">
             <a
-              href="https://www.linkedin.com/in/tu-perfil-1"
+              href="https://www.linkedin.com/in/andreianegrului/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-[#0077B5] text-white rounded-lg hover:bg-[#006396] transition-all duration-300 hover:scale-105"
             >
               <Linkedin className="w-5 h-5" />
-              <span>Andrei (apellido)</span>
+              <span>Andrei Anegrului</span>
             </a>
             <a
               href="https://es.linkedin.com/in/joel-gal%C3%A1n-p%C3%A9rez-910724335"
