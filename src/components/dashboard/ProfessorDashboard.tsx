@@ -7,6 +7,7 @@ import { AcademicGuidance } from '../dashboard/sections/AcademicGuidance';
 import { LogoutButton } from '../dashboard/sections/LogoutButton';
 import { User } from '../../types';
 import { FaLinkedin } from 'react-icons/fa'; // Importamos el ícono de LinkedIn
+import { motion } from 'framer-motion'; // Importamos framer-motion
 
 const mockProfessor: User = {
   id: 'p1',
@@ -77,7 +78,12 @@ export const ProfessorDashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex justify-between items-center mb-8"
+        >
           {/* Contenedor del logo y la bienvenida alineados a la izquierda */}
           <div className="flex items-center space-x-4">
             <img
@@ -86,30 +92,45 @@ export const ProfessorDashboard: React.FC = () => {
               className="w-16 h-auto" // Tamaño ajustado del logo
             />
             <h1 className="text-3xl font-bold text-studentconnectRed">
-            Bienvenido a tu perfil, <span className="text-[#F26F63]">{mockProfessor.name} {mockProfessor.lastName}</span>
-
+              Bienvenido a tu perfil,{' '}
+              <span className="text-[#F26F63]">{mockProfessor.name} {mockProfessor.lastName}</span>
             </h1>
           </div>
 
           {/* Botón de cerrar sesión alineado a la derecha */}
           <LogoutButton />
-        </div>
+        </motion.div>
 
         {/* Aquí ya no es necesario que esté condicionado por el estudiante */}
-        <div className="mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-8"
+        >
           <UserProfile user={mockProfessor} editable={true} /> {/* Perfil editable del profesor */}
-        </div>
+        </motion.div>
 
-        <div className="mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mb-8"
+        >
           <StudentSearch
             onSearch={handleSearch}
             students={filteredStudents}
             onStudentSelect={setSelectedStudent}
           />
-        </div>
+        </motion.div>
 
         {selectedStudent && (
-          <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8"
+          >
             <div className="space-y-8">
               <UserProfile user={selectedStudent} />
               <Calendar attendances={mockAttendances} />
@@ -122,7 +143,7 @@ export const ProfessorDashboard: React.FC = () => {
                 onAddComment={(postId, content) => console.log('New comment:', postId, content)}
               />
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>

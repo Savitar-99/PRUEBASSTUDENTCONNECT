@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'; // Importar toast para notificaciones
+import { motion } from 'framer-motion'; // Importar motion desde framer-motion
 
 export function RegisterStudent() {
   const [email, setEmail] = useState('');
@@ -40,22 +41,41 @@ export function RegisterStudent() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full p-4">
+    <motion.div 
+      className="flex flex-col items-center w-full p-4"
+      initial={{ opacity: 0 }} // Inicializamos con opacidad 0
+      animate={{ opacity: 1 }} // Animamos a opacidad 1
+      transition={{ duration: 0.8 }} // Duración de la animación
+    >
       {/* Título */}
-      <h1 className="text-3xl font-bold mb-6 text-center">
+      <motion.h1 
+        className="text-3xl font-bold mb-6 text-center"
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
         <span className="text-white">Crea tu cuenta en </span>
         <span className="text-[#F26F63]">StudentConnect</span>
-      </h1>
+      </motion.h1>
 
       {/* Formulario */}
-      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+      <motion.div 
+        className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg"
+        initial={{ scale: 0.9 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.6 }}
+      >
         <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">
           Registro de Estudiante
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Nombre */}
-          <div>
+          <motion.div 
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
             <label className="block text-sm font-medium text-gray-700">Nombre</label>
             <input
               type="text"
@@ -64,10 +84,14 @@ export function RegisterStudent() {
               className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
               required
             />
-          </div>
+          </motion.div>
 
           {/* Apellido */}
-          <div>
+          <motion.div 
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
             <label className="block text-sm font-medium text-gray-700">Apellido</label>
             <input
               type="text"
@@ -76,10 +100,14 @@ export function RegisterStudent() {
               className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
               required
             />
-          </div>
+          </motion.div>
 
           {/* Número de Teléfono */}
-          <div>
+          <motion.div 
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
             <label className="block text-sm font-medium text-gray-700">Número de Teléfono</label>
             <input
               type="tel"
@@ -90,10 +118,14 @@ export function RegisterStudent() {
               title="El número de teléfono debe contener exactamente 9 dígitos."
               required
             />
-          </div>
+          </motion.div>
 
           {/* Correo Electrónico */}
-          <div>
+          <motion.div 
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
             <label className="block text-sm font-medium text-gray-700">Correo Electrónico</label>
             <input
               type="email"
@@ -102,10 +134,14 @@ export function RegisterStudent() {
               className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
               required
             />
-          </div>
+          </motion.div>
 
           {/* Contraseña */}
-          <div>
+          <motion.div 
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
             <label className="block text-sm font-medium text-gray-700">Contraseña</label>
             <input
               type="password"
@@ -114,25 +150,29 @@ export function RegisterStudent() {
               className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
               required
             />
-          </div>
+          </motion.div>
 
           {/* Botón de Registro */}
-          <button
+          <motion.button
             type="submit"
             className="w-full py-2 px-4 bg-[#F26F63] text-white rounded-md shadow hover:bg-[#e25d51] focus:ring-2 focus:ring-offset-2 focus:ring-[#F26F63] transition duration-200"
+            whileHover={{ scale: 1.05 }} // Efecto al pasar el ratón
+            whileTap={{ scale: 0.95 }} // Efecto al hacer clic
           >
             Registrarse
-          </button>
+          </motion.button>
         </form>
 
         {/* Botón para volver al inicio */}
-        <button
+        <motion.button
           onClick={() => navigate('/')}
           className="w-full mt-4 py-2 px-4 text-[#F26F63] border border-[#F26F63] rounded-md hover:bg-[#F26F63] hover:text-white transition duration-200"
+          whileHover={{ scale: 1.05 }} // Efecto al pasar el ratón
+          whileTap={{ scale: 0.95 }} // Efecto al hacer clic
         >
           Volver al Inicio de Sesión
-        </button>
-      </div>
-    </div>
+        </motion.button>
+      </motion.div>
+    </motion.div>
   );
 }

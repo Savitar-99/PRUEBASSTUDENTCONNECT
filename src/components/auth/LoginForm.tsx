@@ -133,7 +133,7 @@ export function LoginForm() {
             Política de Privacidad
           </a>
           <p className="text-sm text-gray-600 mt-4">
-          <a href="/about-us" className="hover:text-[#F26F63]">Quiénes Somos</a>
+          <a href="/nosotros" className="hover:text-[#F26F63]">Quiénes Somos</a>
         </p>
         </p>
       </footer>

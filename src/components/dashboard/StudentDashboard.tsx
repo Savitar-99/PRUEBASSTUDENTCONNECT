@@ -5,6 +5,7 @@ import { UserProfile } from '../dashboard/sections/UserProfile';
 import { AcademicGuidance } from '../dashboard/sections/AcademicGuidance';
 import { LogoutButton } from '../dashboard/sections/LogoutButton';
 import { FaLinkedin } from 'react-icons/fa'; // Importamos el ícono de LinkedIn
+import { motion } from 'framer-motion'; // Importamos framer-motion
 
 const mockUser = {
   id: '1',
@@ -68,22 +69,50 @@ export const StudentDashboard: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-8">
-            <UserProfile user={mockUser} editable={true} />
-            <Calendar attendances={mockAttendances} />
+            {/* Animación de entrada para UserProfile y Calendar */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <UserProfile user={mockUser} editable={true} />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <Calendar attendances={mockAttendances} />
+            </motion.div>
           </div>
 
           <div className="space-y-8">
-            <PerformanceChart subjects={mockSubjects} />
-            <AcademicGuidance
-              isStudent={true}
-              posts={mockGuidancePosts}
-              onAddPost={(content) => console.log('New post:', content)}
-              onEditPost={(id, content) => console.log('Edit post:', id, content)}
-              onAddComment={(postId, content) => console.log('New comment:', postId, content)}
-            />
+            {/* Animación de entrada para PerformanceChart y AcademicGuidance */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <PerformanceChart subjects={mockSubjects} />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <AcademicGuidance
+                isStudent={true}
+                posts={mockGuidancePosts}
+                onAddPost={(content) => console.log('New post:', content)}
+                onEditPost={(id, content) => console.log('Edit post:', id, content)}
+                onAddComment={(postId, content) => console.log('New comment:', postId, content)}
+              />
+            </motion.div>
           </div>
         </div>
-        </div>
+      </div>
     </div>
   );
 };

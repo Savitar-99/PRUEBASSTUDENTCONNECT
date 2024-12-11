@@ -4,7 +4,7 @@ import { RegisterStudent } from './components/auth/RegisterStudent';
 import { PasswordRecovery } from './components/auth/PasswordRecovery';
 import { StudentDashboard } from './components/dashboard/StudentDashboard';
 import { ProfessorDashboard } from './components/dashboard/ProfessorDashboard';
-import { AboutUs } from './components/AboutUs';
+import { Nosotros } from './components/QuienesSomos/Nosotros'; // Ajusta la ruta según la ubicación del archivo
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -27,7 +27,7 @@ function App() {
             <Route path="/register-student" element={<RegisterStudent />} />
             <Route path="/student-dashboard" element={<StudentDashboard />} />
             <Route path="/teacher-dashboard" element={<ProfessorDashboard />} />
-            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/nosotros" element={<Nosotros />} />
             <Route path="/password-recovery" element={<PasswordRecovery />} />
             
 
