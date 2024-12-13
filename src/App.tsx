@@ -7,6 +7,7 @@ import { ProfessorDashboard } from './components/dashboard/ProfessorDashboard';
 import { Nosotros } from './components/QuienesSomos/Nosotros'; // Ajusta la ruta según la ubicación del archivo
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LanguageSwitcher from './components//lenguajeSwitcher/LenguajeSwitcher'; // Importa el componente LanguageSwitcher
 
 function App() {
   return (
@@ -29,12 +30,12 @@ function App() {
             <Route path="/teacher-dashboard" element={<ProfessorDashboard />} />
             <Route path="/nosotros" element={<Nosotros />} />
             <Route path="/password-recovery" element={<PasswordRecovery />} />
-            
-
           </Routes>
         </div>
       </div>
       <ToastContainer />
+      {/* Añadimos el LanguageSwitcher para que esté visible en todas las páginas */}
+      <LanguageSwitcher onLanguageChange={(language: string) => console.log(`Idioma seleccionado: ${language}`)} />
     </Router>
   );
 }
