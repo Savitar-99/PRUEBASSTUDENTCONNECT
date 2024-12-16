@@ -2,6 +2,7 @@ import React from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { Attendance } from '../types';
+import i18n from 'i18next'; // Importa i18n para las traducciones
 
 interface CalendarProps {
   attendances: Attendance[];
@@ -22,15 +23,15 @@ export const Calendar: React.FC<CalendarProps> = ({ attendances }) => {
       <div className="mb-4 flex gap-4 text-sm">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-[#22c55e]"></div>
-          <span>Presente</span>
+          <span>{i18n.t('present')}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-[#ef4444]"></div>
-          <span>Ausente</span>
+          <span>{i18n.t('absent')}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-[#f97316]"></div>
-          <span>Justificado</span>
+          <span>{i18n.t('justified')}</span>
         </div>
       </div>
       <FullCalendar
