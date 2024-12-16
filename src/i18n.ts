@@ -71,7 +71,10 @@ const resources = {
             cancel: "Cancel·la",
             publish: "Publicar",
             save: "Desa",
-            addComment: "Afegeix un comentari..."
+            addComment: "Afegeix un comentari...",
+            present: "Present",
+            absent: "Absent",
+            justified: "Justificat"
         },
     },
     en: {
@@ -142,7 +145,10 @@ const resources = {
             cancel: "Cancelar",
             publish: "Publicar",
             save: "Save",
-            addComment: "Add a comment..."
+            addComment: "Add a comment...",
+            present: "Present",
+            absent: "Absent",
+            justified: "Justified"
 
         },
     },
@@ -214,7 +220,10 @@ const resources = {
             cancel: "Cancelar",
             publish: "Publicar",
             save: "Guardar",
-            addComment: "Añade un comentario..."
+            addComment: "Añade un comentario...",
+            present: "Presente",
+            absent: "Ausente",
+            justified: "Justificado",
         },
     },
 };
