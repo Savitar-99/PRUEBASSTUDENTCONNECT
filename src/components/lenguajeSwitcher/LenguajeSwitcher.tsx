@@ -44,19 +44,19 @@ const LanguageSwitcher: React.FC = () => {
                         className="cursor-pointer hover:bg-red-500 hover:text-white px-2 py-1 rounded"
                         onClick={() => handleLanguageChange("es")}
                     >
-                        Español
+                        {i18n.t('espanol')}
                     </li>
                     <li
                         className="cursor-pointer hover:bg-red-500 hover:text-white px-2 py-1 rounded"
                         onClick={() => handleLanguageChange("ca")}
                     >
-                        Català
+                        {i18n.t('catalan')}
                     </li>
                     <li
                         className="cursor-pointer hover:bg-red-500 hover:text-white px-2 py-1 rounded"
                         onClick={() => handleLanguageChange("en")}
                     >
-                        English
+                        {i18n.t('english')}
                     </li>
                 </ul>
             </div>

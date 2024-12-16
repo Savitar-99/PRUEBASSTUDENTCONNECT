@@ -5,6 +5,7 @@ import { UserProfile } from '../dashboard/sections/UserProfile';
 import { AcademicGuidance } from '../dashboard/sections/AcademicGuidance';
 import { LogoutButton } from '../dashboard/sections/LogoutButton';
 import { motion } from 'framer-motion'; // Importamos framer-motion
+import { useTranslation } from 'react-i18next'; // Importamos el hook de traducción
 
 const mockUser = {
   id: '1',
@@ -46,6 +47,8 @@ const mockGuidancePosts = [
 ];
 
 export const StudentDashboard: React.FC = () => {
+  const { t } = useTranslation(); // Usamos el hook de traducción
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
@@ -54,11 +57,12 @@ export const StudentDashboard: React.FC = () => {
           <div className="flex items-center space-x-4">
             <img
               src="/assets/logo.png" // Asegúrate de que esta ruta sea correcta
-              alt="Logo de StudentConnect"
+              alt={t('logoAlt')} // Traducción para el alt del logo
               className="w-16 h-auto"
             />
             <h1 className="text-3xl font-bold text-gray-800">
-              Bienvenido a tu perfil, <span className="text-[#F26F63]">{mockUser.name} {mockUser.lastName}</span>
+              {t('welcomeTeacher',)}
+              <span className="text-[#F26F63]">{mockUser.name} {mockUser.lastName}</span>
             </h1>
           </div>
 

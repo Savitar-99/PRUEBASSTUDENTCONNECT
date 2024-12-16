@@ -23,10 +23,10 @@ export function LoginForm() {
 
     if (teacherEmails.includes(email)) {
       userType = 'teacher';
-      toast.success(t('login') + ' como Profesor.'); // Usamos t() para traducir
+      toast.success(t('likelogin') +  (t('liketeacher'))); // Usamos t() para traducir
     } else if (studentEmails.includes(email)) {
       userType = 'student';
-      toast.success(t('login') + ' como Estudiante.'); // Usamos t() para traducir
+      toast.success(t('likelogin') +  (t('likestudent'))); // Usamos t() para traducir
     } else {
       toast.error(t('email') + ' ' + t('forgotPassword')); // Usamos t() para traducir
       return;
