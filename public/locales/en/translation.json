@@ -1,0 +1,24 @@
+{
+    "welcomeMessage": "Welcome to your profile, {{name}} {{lastName}}",
+    "studentSearchPlaceholder": "Search students...",
+    "logoutButton": "Log out",
+    "calendarTitle": "Attendance Calendar",
+    "performanceChartTitle": "Academic Performance",
+    "academicGuidanceTitle": "Academic Guidance",
+    "studentDetails": {
+        "name": "Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "phone": "Phone",
+        "school": "School"
+    },
+    "attendanceStatus": {
+        "present": "Present",
+        "absent": "Absent",
+        "justified": "Justified"
+    },
+    "subjects": "Subjects",
+    "progress": "Progress",
+    "addCommentPlaceholder": "Write your comment...",
+    "addCommentButton": "Add Comment"
+}

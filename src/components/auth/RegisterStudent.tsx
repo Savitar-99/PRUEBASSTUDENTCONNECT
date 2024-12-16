@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify'; // Importar toast para notificaciones
-import { motion } from 'framer-motion'; // Importar motion desde framer-motion
+import { toast } from 'react-toastify'; // Import toast for notifications
+import { motion } from 'framer-motion'; // Import motion from framer-motion
 
 export function RegisterStudent() {
   const [email, setEmail] = useState('');
@@ -14,27 +14,27 @@ export function RegisterStudent() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validación adicional de longitud (opcional)
+    // Additional length validation (optional)
     if (phone.length !== 9) {
-      toast.error('El número de teléfono debe tener exactamente 9 dígitos.'); // Notificación de error
+      toast.error('Phone number must have exactly 9 digits.'); // Error notification
       return;
     }
 
-    // Validación de contraseñas (si fuera necesario)
+    // Password validation (if needed)
     if (password.length < 6) {
-      toast.error('La contraseña debe tener al menos 6 caracteres.');
+      toast.error('Password must be at least 6 characters.');
       return;
     }
 
-    console.log('Registrando estudiante:', { email, password, name, lastName, phone });
-    toast.success('¡Registro exitoso! Bienvenido a StudentConnect.'); // Notificación de éxito
+    console.log('Registering student:', { email, password, name, lastName, phone });
+    toast.success('Registration successful! Welcome to StudentConnect.'); // Success notification
     navigate('/student-dashboard');
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
-    // Permitir solo números y limitar a 9 caracteres
+    // Allow only numbers and limit to 9 characters
     if (/^\d{0,9}$/.test(value)) {
       setPhone(value);
     }
@@ -43,22 +43,22 @@ export function RegisterStudent() {
   return (
     <motion.div 
       className="flex flex-col items-center w-full p-4"
-      initial={{ opacity: 0 }} // Inicializamos con opacidad 0
-      animate={{ opacity: 1 }} // Animamos a opacidad 1
-      transition={{ duration: 0.8 }} // Duración de la animación
+      initial={{ opacity: 0 }} // Initial opacity 0
+      animate={{ opacity: 1 }} // Animate to opacity 1
+      transition={{ duration: 0.8 }} // Animation duration
     >
-      {/* Título */}
+      {/* Title */}
       <motion.h1 
         className="text-3xl font-bold mb-6 text-center"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <span className="text-white">Crea tu cuenta en </span>
+        <span className="text-white">Create your account on </span>
         <span className="text-[#F26F63]">StudentConnect</span>
       </motion.h1>
 
-      {/* Formulario */}
+      {/* Form */}
       <motion.div 
         className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg"
         initial={{ scale: 0.9 }}
@@ -66,17 +66,17 @@ export function RegisterStudent() {
         transition={{ duration: 0.6 }}
       >
         <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">
-          Registro de Estudiante
+          Student Registration
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Nombre */}
+          {/* Name */}
           <motion.div 
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <label className="block text-sm font-medium text-gray-700">Nombre</label>
+            <label className="block text-sm font-medium text-gray-700">First Name</label>
             <input
               type="text"
               value={name}
@@ -86,13 +86,13 @@ export function RegisterStudent() {
             />
           </motion.div>
 
-          {/* Apellido */}
+          {/* Last Name */}
           <motion.div 
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <label className="block text-sm font-medium text-gray-700">Apellido</label>
+            <label className="block text-sm font-medium text-gray-700">Last Name</label>
             <input
               type="text"
               value={lastName}
@@ -102,31 +102,31 @@ export function RegisterStudent() {
             />
           </motion.div>
 
-          {/* Número de Teléfono */}
+          {/* Phone Number */}
           <motion.div 
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <label className="block text-sm font-medium text-gray-700">Número de Teléfono</label>
+            <label className="block text-sm font-medium text-gray-700">Phone Number</label>
             <input
               type="tel"
               value={phone}
               onChange={handlePhoneChange}
               className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
               pattern="\d{9}"
-              title="El número de teléfono debe contener exactamente 9 dígitos."
+              title="Phone number must contain exactly 9 digits."
               required
             />
           </motion.div>
 
-          {/* Correo Electrónico */}
+          {/* Email */}
           <motion.div 
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <label className="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+            <label className="block text-sm font-medium text-gray-700">Email</label>
             <input
               type="email"
               value={email}
@@ -136,13 +136,13 @@ export function RegisterStudent() {
             />
           </motion.div>
 
-          {/* Contraseña */}
+          {/* Password */}
           <motion.div 
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <label className="block text-sm font-medium text-gray-700">Contraseña</label>
+            <label className="block text-sm font-medium text-gray-700">Password</label>
             <input
               type="password"
               value={password}
@@ -152,25 +152,25 @@ export function RegisterStudent() {
             />
           </motion.div>
 
-          {/* Botón de Registro */}
+          {/* Register Button */}
           <motion.button
             type="submit"
             className="w-full py-2 px-4 bg-[#F26F63] text-white rounded-md shadow hover:bg-[#e25d51] focus:ring-2 focus:ring-offset-2 focus:ring-[#F26F63] transition duration-200"
-            whileHover={{ scale: 1.05 }} // Efecto al pasar el ratón
-            whileTap={{ scale: 0.95 }} // Efecto al hacer clic
+            whileHover={{ scale: 1.05 }} // Hover effect
+            whileTap={{ scale: 0.95 }} // Click effect
           >
-            Registrarse
+            Register
           </motion.button>
         </form>
 
-        {/* Botón para volver al inicio */}
+        {/* Button to go back to login */}
         <motion.button
           onClick={() => navigate('/')}
           className="w-full mt-4 py-2 px-4 text-[#F26F63] border border-[#F26F63] rounded-md hover:bg-[#F26F63] hover:text-white transition duration-200"
-          whileHover={{ scale: 1.05 }} // Efecto al pasar el ratón
-          whileTap={{ scale: 0.95 }} // Efecto al hacer clic
+          whileHover={{ scale: 1.05 }} // Hover effect
+          whileTap={{ scale: 0.95 }} // Click effect
         >
-          Volver al Inicio de Sesión
+          Back to Login
         </motion.button>
       </motion.div>
     </motion.div>

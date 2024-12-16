@@ -1,19 +1,25 @@
-import React, { useState } from "react";
-import { FaLanguage } from "react-icons/fa"; // Icono de idioma (asegúrate de tener instalado react-icons)
+import React, { useState, useEffect } from "react";
+import { FaLanguage } from "react-icons/fa"; // Icono de idioma
+import i18n from "i18next"; // Importa i18n para cambiar el idioma
 
-interface LanguageSwitcherProps {
-    onLanguageChange: (language: string) => void;
-}
-
-const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ onLanguageChange }) => {
+const LanguageSwitcher: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false); // Estado para controlar si el menú está abierto o cerrado
+
+    // Lee el idioma guardado en localStorage, si no está presente usa el idioma predeterminado
+    const savedLanguage = localStorage.getItem('language') || 'en';
+    
+    // Establece el idioma guardado al iniciar el componente
+    useEffect(() => {
+        i18n.changeLanguage(savedLanguage);
+    }, [savedLanguage]);
 
     const handleToggle = () => {
         setIsOpen(!isOpen); // Cambia el estado cuando se hace clic en el icono
     };
 
     const handleLanguageChange = (language: string) => {
-        onLanguageChange(language); // Llama la función para cambiar el idioma
+        i18n.changeLanguage(language); // Cambia el idioma utilizando i18n
+        localStorage.setItem('language', language); // Guarda el idioma en localStorage
         setIsOpen(false); // Cierra el menú después de seleccionar un idioma
     };
 

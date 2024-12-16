@@ -1,0 +1,24 @@
+{
+    "welcomeMessage": "Bienvenido a tu perfil, {{name}} {{lastName}}",
+    "studentSearchPlaceholder": "Buscar estudiantes...",
+    "logoutButton": "Cerrar sesión",
+    "calendarTitle": "Calendario de asistencias",
+    "performanceChartTitle": "Rendimiento académico",
+    "academicGuidanceTitle": "Orientación académica",
+    "studentDetails": {
+        "name": "Nombre",
+        "lastName": "Apellido",
+        "email": "Correo electrónico",
+        "phone": "Teléfono",
+        "school": "Escuela"
+    },
+    "attendanceStatus": {
+        "present": "Presente",
+        "absent": "Ausente",
+        "justified": "Justificado"
+    },
+    "subjects": "Asignaturas",
+    "progress": "Progreso",
+    "addCommentPlaceholder": "Escribe tu comentario...",
+    "addCommentButton": "Añadir comentario"
+}
