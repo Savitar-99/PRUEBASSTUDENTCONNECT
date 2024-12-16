@@ -7,6 +7,7 @@ import { AcademicGuidance } from '../dashboard/sections/AcademicGuidance';
 import { LogoutButton } from '../dashboard/sections/LogoutButton';
 import { User } from '../../types';
 import { motion } from 'framer-motion'; // Importamos framer-motion
+import { useTranslation } from 'react-i18next'; // Importamos el hook para traducciones
 
 const mockProfessor: User = {
   id: 'p1',
@@ -61,6 +62,7 @@ const mockGuidancePosts = [
 ];
 
 export const ProfessorDashboard: React.FC = () => {
+  const { t } = useTranslation(); // Hook para las traducciones
   const [selectedStudent, setSelectedStudent] = useState<User | null>(null);
   const [filteredStudents, setFilteredStudents] = useState(mockStudents);
 
@@ -91,7 +93,7 @@ export const ProfessorDashboard: React.FC = () => {
               className="w-16 h-auto" // Tamaño ajustado del logo
             />
             <h1 className="text-3xl font-bold text-studentconnectRed">
-              Bienvenido a tu perfil,{' '}
+              {t('welcomeTeacher', )}
               <span className="text-[#F26F63]">{mockProfessor.name} {mockProfessor.lastName}</span>
             </h1>
           </div>
@@ -120,6 +122,7 @@ export const ProfessorDashboard: React.FC = () => {
             onSearch={handleSearch}
             students={filteredStudents}
             onStudentSelect={setSelectedStudent}
+            placeholder={t('searchStudent')}
           />
         </motion.div>
 
@@ -132,13 +135,14 @@ export const ProfessorDashboard: React.FC = () => {
           >
             <div className="space-y-8">
               <UserProfile user={selectedStudent} />
-              <Calendar attendances={mockAttendances} />
+              <Calendar attendances={mockAttendances} title={t('attendance')} />
             </div>
 
             <div className="space-y-8">
-              <PerformanceChart subjects={mockSubjects} />
+              <PerformanceChart subjects={mockSubjects} title={t('performance')} />
               <AcademicGuidance
                 posts={mockGuidancePosts}
+                title={t('guidance')}
                 onAddComment={(postId, content) => console.log('New comment:', postId, content)}
               />
             </div>

@@ -45,6 +45,9 @@ const resources = {
             create_account: "Crea el teu compte a",
             registration_success: "Registre exitós",
             password_validation: "La contrasenya necessita més de 6 caràcters",
+            welcomeTeacher: "Benvingut al teu perfil, ",
+            Cerrar_Sesión: "Tanca la sessió",
+            searchStudent: "Cerca un alumne",
         },
     },
     en: {
@@ -89,6 +92,9 @@ const resources = {
             create_account: "Create your account at",
             registration_success: "Registration successful",
             password_validation: "The password needs to be more than 6 characters",
+            welcomeTeacher: "Welcome to your profile, ",
+            Cerrar_Sesión: "Log out",
+            searchStudent: "Search for a student",
 
 
         },
@@ -135,6 +141,9 @@ const resources = {
             create_account: "Crea tu cuenta en",
             registration_success: "Registro exitoso",
             password_validation: "La contraseña necesita más de 6 caracteres",
+            welcomeTeacher: "Bienvenido a tu perfil, ",
+            Cerrar_Sesión: "Cierra la sesión",
+            searchStudent: "Busca un alumno",
 
         },
     },
