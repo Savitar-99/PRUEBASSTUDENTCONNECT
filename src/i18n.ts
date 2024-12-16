@@ -64,7 +64,14 @@ const resources = {
             likestudent: " com a estudiant",
             espanol: "Catellà",
             catalan: "Català",
-            english: "Anglés"
+            english: "Anglés",
+            title: "Orientació Acadèmica",
+            newPost: "Nou Post",
+            newPostPlaceholder: "Escriu el teu nou post...",
+            cancel: "Cancel·la",
+            publish: "Publicar",
+            save: "Desa",
+            addComment: "Afegeix un comentari..."
         },
     },
     en: {
@@ -129,6 +136,13 @@ const resources = {
             espanol: "Spanish",
             catalan: "Catalan",
             english: "English",
+            title: "Orientación Académica",
+            newPost: "Nuevo Post",
+            newPostPlaceholder: "Escribe tu nuevo post...",
+            cancel: "Cancelar",
+            publish: "Publicar",
+            save: "Save",
+            addComment: "Add a comment..."
 
         },
     },
@@ -193,7 +207,14 @@ const resources = {
             likestudent: " como estudiante",
             espanol: "Español",
             catalan: "Catalán",
-            english: "Inglés"
+            english: "Inglés",
+            title: "Orientación Académica",
+            newPost: "Nuevo Post",
+            newPostPlaceholder: "Escribe tu nuevo post...",
+            cancel: "Cancelar",
+            publish: "Publicar",
+            save: "Guardar",
+            addComment: "Añade un comentario..."
         },
     },
 };
