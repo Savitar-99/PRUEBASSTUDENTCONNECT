@@ -38,6 +38,13 @@ const resources = {
             codeVerified: "Codi Verificat",
             passwordsDoNotMatch: "Les contrasenyes no coincideixen",
             verificationCode: "Codi de verificació",
+            first_name: "Nom",
+            last_name: "Cognom",
+            phone_number: "Nnúmero de telèfon",
+            student_registration: "Registre de l'estudiant",
+            create_account: "Crea el teu compte a",
+            registration_success: "Registre exitós",
+            password_validation: "La contrasenya necessita més de 6 caràcters",
         },
     },
     en: {
@@ -75,6 +82,15 @@ const resources = {
             verificationCodeSent: "Verification code sent",
             codeVerified: "Verified code",
             passwordsDoNotMatch: "Passwords do not match",
+            first_name: "Name",
+            last_name: "Last name",
+            phone_number: "Phone number",
+            student_registration: "Student registration",
+            create_account: "Create your account at",
+            registration_success: "Registration successful",
+            password_validation: "The password needs to be more than 6 characters",
+
+
         },
     },
     es: {
@@ -112,6 +128,14 @@ const resources = {
             codeVerified: "Codigo veriificado",
             passwordsDoNotMatch: "Las contraseñas no coinciden",
             verificationCode: "Codigo de verificación",
+            first_name: "Nombre",
+            last_name: "Apellidos",
+            phone_number: "Número de teléfono",
+            student_registration: "Registro del estudiante",
+            create_account: "Crea tu cuenta en",
+            registration_success: "Registro exitoso",
+            password_validation: "La contraseña necesita más de 6 caracteres",
+
         },
     },
 };
