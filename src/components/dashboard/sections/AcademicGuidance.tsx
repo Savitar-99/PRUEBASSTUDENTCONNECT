@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Plus, Edit2, MessageSquare } from 'lucide-react';
+import i18n from 'i18next'; // Importa i18n para las traducciones
 
 interface GuidancePost {
   id: string;
@@ -59,7 +60,7 @@ export const AcademicGuidance: React.FC<AcademicGuidanceProps> = ({
     <div className="bg-white p-6 rounded-lg shadow-md">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-xl font-bold text-gray-800">
-          Orientación Académica
+          {i18n.t('title')}
         </h3>
         {isStudent && (
           <button
@@ -67,7 +68,7 @@ export const AcademicGuidance: React.FC<AcademicGuidanceProps> = ({
             className="flex items-center gap-2 px-4 py-2 bg-[#F26F63] text-white rounded-md hover:bg-opacity-90 transition-colors"
           >
             <Plus size={20} />
-            <span>Nuevo Post</span>
+            <span>{i18n.t('newPost')}</span>
           </button>
         )}
       </div>
@@ -80,20 +81,20 @@ export const AcademicGuidance: React.FC<AcademicGuidanceProps> = ({
               onChange={(e) => setNewPost(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F26F63] focus:border-transparent"
               rows={4}
-              placeholder="Escribe tu nuevo post..."
+              placeholder={i18n.t('newPostPlaceholder')}
             />
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setEditingPost(null)}
                 className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md transition-colors"
               >
-                Cancelar
+                {i18n.t('cancel')}
               </button>
               <button
                 onClick={handleAddPost}
                 className="px-4 py-2 bg-[#F26F63] text-white rounded-md hover:bg-opacity-90 transition-colors"
               >
-                Publicar
+                {i18n.t('publish')}
               </button>
             </div>
           </div>
@@ -114,13 +115,13 @@ export const AcademicGuidance: React.FC<AcademicGuidanceProps> = ({
                     onClick={() => setEditingPost(null)}
                     className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md transition-colors"
                   >
-                    Cancelar
+                    {i18n.t('cancel')}
                   </button>
                   <button
                     onClick={() => handleEditPost(post.id)}
                     className="px-4 py-2 bg-[#F26F63] text-white rounded-md hover:bg-opacity-90 transition-colors"
                   >
-                    Guardar
+                    {i18n.t('save')}
                   </button>
                 </div>
               </div>
@@ -168,7 +169,7 @@ export const AcademicGuidance: React.FC<AcademicGuidanceProps> = ({
                           [post.id]: e.target.value
                         }))
                       }
-                      placeholder="Añade un comentario..."
+                      placeholder={i18n.t('addComment')}
                       className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#F26F63] focus:border-transparent"
                     />
                     <button
