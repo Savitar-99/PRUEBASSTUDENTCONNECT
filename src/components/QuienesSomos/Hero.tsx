@@ -1,13 +1,16 @@
 import React from 'react';
 import { GraduationCap } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export function Hero() {
+  const { t } = useTranslation();
+
   return (
     <div className="relative h-[60vh] overflow-hidden">
       <div className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80"
-          alt="Estudiantes colaborando"
+          alt={t('estudiantesColaborando')}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
@@ -19,7 +22,7 @@ export function Hero() {
           StudentConnect
         </h1>
         <p className="text-xl max-w-2xl text-center text-gray-100">
-          Construyendo el futuro de la educación, un estudiante a la vez
+          {t('construyendoFuturoEducacion')}
         </p>
       </div>
     </div>

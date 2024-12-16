@@ -1,7 +1,10 @@
 import React from 'react';
 import { Linkedin } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="py-8 px-4 text-center">
       <div className="max-w-5xl mx-auto border-t border-gray-200 pt-8">
@@ -11,13 +14,13 @@ export function Footer() {
               href="/" 
               className="text-[#F26F63] hover:text-[#e25d51] transition-all duration-300 hover:scale-105"
             >
-              Iniciar Sesión
+              {t('iniciarSesion')}
             </a>
             <a 
               href="/register-student" 
               className="text-[#F26F63] hover:text-[#e25d51] transition-all duration-300 hover:scale-105"
             >
-              Registrarse
+              {t('registrarse')}
             </a>
           </div>
           
@@ -52,7 +55,7 @@ export function Footer() {
           </div>
 
           <p className="text-sm text-gray-500">
-            &copy; 2024 StudentConnect. Todos los derechos reservados.
+            &copy; 2024 StudentConnect. {t('todosDerechosReservados')}
           </p>
         </div>
       </div>
