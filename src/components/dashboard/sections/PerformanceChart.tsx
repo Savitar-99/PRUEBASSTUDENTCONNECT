@@ -2,6 +2,7 @@ import React from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { Subject } from '../../types';
+import i18n from 'i18next'; // Importa i18n para las traducciones
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -14,7 +15,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ subjects }) 
     labels: subjects.map(subject => subject.name),
     datasets: [
       {
-        label: 'Nivel de Progreso',
+        label: i18n.t('progressLevel'), // Traducido con i18n
         data: subjects.map(subject => subject.progress),
         backgroundColor: '#F26F63',
       },
@@ -29,7 +30,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ subjects }) 
       },
       title: {
         display: true,
-        text: 'Rendimiento por Asignatura',
+        text: i18n.t('performanceBySubject'), // Traducido con i18n
       },
     },
     scales: {
