@@ -109,8 +109,6 @@ export function LoginForm() {
         </button>
       </form>
 
-      {error && <p className="text-red-500 mt-2">{error}</p>} {/* Mostrar error */}
-
       <div className="mt-4 text-center">
         <p className="text-sm text-gray-600">
           {t('noAccount')}{' '}
