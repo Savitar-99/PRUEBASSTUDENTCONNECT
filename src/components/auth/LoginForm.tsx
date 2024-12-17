@@ -2,42 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-
-const studentEmails = ['student@example.com'];
-const teacherEmails = ['teacher@example.com'];
+import api from "../../services/api.ts";
 
 export function LoginForm() {
   const { t } = useTranslation(); // Usamos useTranslation para obtener la función t
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-  const [isVisible, setIsVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    setTimeout(() => setIsVisible(true), 100); // Animación al montar el componente
-  }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    let userType: 'student' | 'teacher' = 'student';
-
-    if (teacherEmails.includes(email)) {
-      userType = 'teacher';
-      toast.success(t('login') + ' como Profesor.'); // Usamos t() para traducir
-    } else if (studentEmails.includes(email)) {
-      userType = 'student';
-      toast.success(t('login') + ' como Estudiante.'); // Usamos t() para traducir
-    } else {
-      toast.error(t('email') + ' ' + t('forgotPassword')); // Usamos t() para traducir
-      return;
-    }
-
-    navigate(`/${userType}-dashboard`);
-  };
+  const handleLogin = async (e: React.FormEvent) => {
+      e.preventDefault();
+      try {
+          const response = await api.post("/auth/login", {
+              email,
+              password,
+          });
+          localStorage.setItem("token", response.data.token); // Guarda el token en localStorage
+          alert("Login exitoso");
+      } catch (error) {
+          console.error("Error en el login", error);
+          alert("Login fallido");
+      }
+    };
 
   return (
     <div
-      className={`w-full p-8 bg-white rounded-lg shadow-lg transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+      className={`w-full p-8 bg-white rounded-lg shadow-lg transition-all duration-700 opacity-100 translate-y-10`}
     >
       <div className="flex flex-col items-center mb-8">
         <img
@@ -48,7 +37,7 @@ export function LoginForm() {
         <h2 className="text-2xl font-bold text-gray-900">{t('login')}</h2> {/* Usamos t() para traducir */}
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleLogin} className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-700">
             {t('email')} {/* Usamos t() para traducir */}
@@ -76,7 +65,6 @@ export function LoginForm() {
         </div>
 
         <button
-          type="submit"
           className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-[#F26F63] hover:bg-[#e25d51] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F26F63] transform transition-transform duration-200 hover:scale-105"
         >
           {t('login')} {/* Usamos t() para traducir */}
