@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'; // Import toast for notifications
 import { motion } from 'framer-motion'; // Import motion from framer-motion
+import { useTranslation } from 'react-i18next'; // Import useTranslation from i18next
 
 export function RegisterStudent() {
   const [email, setEmail] = useState('');
@@ -10,24 +11,25 @@ export function RegisterStudent() {
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
   const navigate = useNavigate();
+  const { t } = useTranslation(); // Hook to use translations
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     // Additional length validation (optional)
     if (phone.length !== 9) {
-      toast.error('Phone number must have exactly 9 digits.'); // Error notification
+      toast.error(t('phone_validation')); // Error notification
       return;
     }
 
     // Password validation (if needed)
     if (password.length < 6) {
-      toast.error('Password must be at least 6 characters.');
+      toast.error(t('password_validation'));
       return;
     }
 
     console.log('Registering student:', { email, password, name, lastName, phone });
-    toast.success('Registration successful! Welcome to StudentConnect.'); // Success notification
+    toast.success(t('registration_success')); // Success notification
     navigate('/student-dashboard');
   };
 
@@ -54,8 +56,8 @@ export function RegisterStudent() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <span className="text-white">Create your account on </span>
-        <span className="text-[#F26F63]">StudentConnect</span>
+        <span className="text-white">{t('create_account')} </span>
+        <span className="text-[#F26F63]">{('StudentConnect')}</span>
       </motion.h1>
 
       {/* Form */}
@@ -66,7 +68,7 @@ export function RegisterStudent() {
         transition={{ duration: 0.6 }}
       >
         <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">
-          Student Registration
+          {t('student_registration')}
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -76,7 +78,7 @@ export function RegisterStudent() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <label className="block text-sm font-medium text-gray-700">First Name</label>
+            <label className="block text-sm font-medium text-gray-700">{t('first_name')}</label>
             <input
               type="text"
               value={name}
@@ -92,7 +94,7 @@ export function RegisterStudent() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <label className="block text-sm font-medium text-gray-700">Last Name</label>
+            <label className="block text-sm font-medium text-gray-700">{t('last_name')}</label>
             <input
               type="text"
               value={lastName}
@@ -108,14 +110,14 @@ export function RegisterStudent() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <label className="block text-sm font-medium text-gray-700">Phone Number</label>
+            <label className="block text-sm font-medium text-gray-700">{t('phone_number')}</label>
             <input
               type="tel"
               value={phone}
               onChange={handlePhoneChange}
               className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
               pattern="\d{9}"
-              title="Phone number must contain exactly 9 digits."
+              title={t('phone_validation')}
               required
             />
           </motion.div>
@@ -126,7 +128,7 @@ export function RegisterStudent() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <label className="block text-sm font-medium text-gray-700">{t('email')}</label>
             <input
               type="email"
               value={email}
@@ -142,7 +144,7 @@ export function RegisterStudent() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <label className="block text-sm font-medium text-gray-700">Password</label>
+            <label className="block text-sm font-medium text-gray-700">{t('password')}</label>
             <input
               type="password"
               value={password}
@@ -159,7 +161,7 @@ export function RegisterStudent() {
             whileHover={{ scale: 1.05 }} // Hover effect
             whileTap={{ scale: 0.95 }} // Click effect
           >
-            Register
+            {t('register')}
           </motion.button>
         </form>
 
@@ -170,7 +172,7 @@ export function RegisterStudent() {
           whileHover={{ scale: 1.05 }} // Hover effect
           whileTap={{ scale: 0.95 }} // Click effect
         >
-          Back to Login
+          {t('backToLogin')}
         </motion.button>
       </motion.div>
     </motion.div>

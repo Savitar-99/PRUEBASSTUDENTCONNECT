@@ -26,9 +26,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, editable = false
       <div className="relative">
         {/* Foto de perfil */}
         <img
-          src={
-            photo || 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&h=400&fit=crop'
-          }
+          src={ '../assets/perfilfoto.webp'}
           alt={`${user.name} ${user.lastName}`}
           className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
         />

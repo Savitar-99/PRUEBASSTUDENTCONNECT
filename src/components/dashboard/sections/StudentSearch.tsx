@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 import { User } from '../types';
+import { useTranslation } from 'react-i18next';
 
 interface StudentSearchProps {
   onSearch: (query: string) => void;
@@ -9,6 +10,7 @@ interface StudentSearchProps {
 }
 
 export const StudentSearch: React.FC<StudentSearchProps> = ({ onSearch, students, onStudentSelect }) => {
+  const { t } = useTranslation();
   const [query, setQuery] = useState('');
 
   return (
@@ -16,7 +18,7 @@ export const StudentSearch: React.FC<StudentSearchProps> = ({ onSearch, students
       <div className="relative">
         <input
           type="text"
-          placeholder="Buscar alumno..."
+          placeholder={t('searchStudent')} // Usando i18n para el placeholder
           className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F26F63] focus:border-transparent"
           value={query}
           onChange={(e) => {
