@@ -74,7 +74,9 @@ const resources = {
             addComment: "Afegeix un comentari...",
             present: "Present",
             absent: "Absent",
-            justified: "Justificat"
+            justified: "Justificat",
+            performanceBySubject: "Rendiment de l'alumne",
+            progressLevel: "Nivell de progrés",
         },
     },
     en: {
@@ -140,7 +142,7 @@ const resources = {
             catalan: "Catalan",
             english: "English",
             title: "Orientación Académica",
-            newPost: "Nuevo Post",
+            newPost: "New post",
             newPostPlaceholder: "Escribe tu nuevo post...",
             cancel: "Cancelar",
             publish: "Publicar",
@@ -148,7 +150,10 @@ const resources = {
             addComment: "Add a comment...",
             present: "Present",
             absent: "Absent",
-            justified: "Justified"
+            justified: "Justified",
+            performanceBySubject: "Student performance",
+            progressLevel: "Progress level",
+            title: "Academic Guidance",
 
         },
     },
@@ -224,6 +229,9 @@ const resources = {
             present: "Presente",
             absent: "Ausente",
             justified: "Justificado",
+            performanceBySubject: "Rendimiento del alumno",
+            progressLevel: "Nivel de progreso",
+
         },
     },
 };
