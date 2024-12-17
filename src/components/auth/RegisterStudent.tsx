@@ -3,42 +3,107 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'; // Import toast for notifications
 import { motion } from 'framer-motion'; // Import motion from framer-motion
 import { useTranslation } from 'react-i18next'; // Import useTranslation from i18next
+import api from "../../services/api.ts";
+
+interface FormDataState {
+  email: string;
+  password: string;
+  name: string;
+  lastName: string;
+  phone: string;
+  image: File | null;
+}
 
 export function RegisterStudent() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [formData, setFormData] = useState<FormDataState>({
+    email: "",
+    password: "",
+    name: "",
+    lastName: "",
+    phone: "",
+    image: null,
+  });
+
   const navigate = useNavigate();
   const { t } = useTranslation(); // Hook to use translations
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, files } = e.target;
 
-    // Additional length validation (optional)
-    if (phone.length !== 9) {
-      toast.error(t('phone_validation')); // Error notification
-      return;
+    if (name === "image" && files) {
+      setFormData({ ...formData, image: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
     }
-
-    // Password validation (if needed)
-    if (password.length < 6) {
-      toast.error(t('password_validation'));
-      return;
-    }
-
-    console.log('Registering student:', { email, password, name, lastName, phone });
-    toast.success(t('registration_success')); // Success notification
-    navigate('/student-dashboard');
   };
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
 
-    // Allow only numbers and limit to 9 characters
-    if (/^\d{0,9}$/.test(value)) {
-      setPhone(value);
+    // Email validation
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "El email no es válido";
+    }
+
+    // Password validation: mínimo 8 caracteres, al menos 1 número, 1 letra mayúscula
+    if (!/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(formData.password)) {
+      newErrors.password = "La contraseña debe tener mínimo 8 caracteres, una mayúscula y un número";
+    }
+
+    // Teléfono validation: solo números, longitud entre 9 y 15
+    if (!/^\d{9,15}$/.test(formData.phone)) {
+      newErrors.phone = "El teléfono debe contener entre 9 y 15 dígitos";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validate()) {
+      return; // Detener si hay errores
+    }
+
+    setLoading(true);
+    setError(null);
+  
+    const data = new FormData();
+    data.append("email", formData.email);
+    data.append("password", formData.password);
+    data.append("name", formData.name);
+    data.append("lastName", formData.lastName);
+    data.append("phone", formData.phone);
+    if (formData.image) {
+      data.append("image", formData.image);
+    }
+
+    try {
+      const response = await api.post("http://localhost:8080/auth/register", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      // Login automático
+      const loginResponse = await api.post("http://localhost:8080/auth/login", {
+        email: formData.email,
+        password: formData.password,
+      });
+
+      // Guardar token y redirigir
+      localStorage.setItem("token", loginResponse.data.token);
+      navigate("/student-dashboard");
+      // Mostrar un toast de éxito
+      toast.success(t('registration_success'));
+    } catch (error) {
+      toast.error(t('registration_error'));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,7 +136,22 @@ export function RegisterStudent() {
           {t('student_registration')}
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleRegister} encType="multipart/form-data" className="space-y-4">
+          {/* Foto */}
+          <motion.div 
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            <label className="block text-sm font-medium text-gray-700">{t('photo')}</label>
+            <input
+              type="file"
+              accept="image/*"
+              name="image"
+              onChange={handleChange}
+              className="w-full py-2 px-3 border-2 border-[#000000] rounded-md text-gray-900 focus:ring-2 focus:ring-[#000000] focus:outline-none "
+            />
+          </motion.div>
           {/* Name */}
           <motion.div 
             initial={{ x: -50, opacity: 0 }}
@@ -81,9 +161,10 @@ export function RegisterStudent() {
             <label className="block text-sm font-medium text-gray-700">{t('first_name')}</label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full py-2 px-3 border-2 border-[#000000] rounded-md text-gray-900 focus:ring-2 focus:ring-[#000000] focus:outline-none "
               required
             />
           </motion.div>
@@ -97,9 +178,10 @@ export function RegisterStudent() {
             <label className="block text-sm font-medium text-gray-700">{t('last_name')}</label>
             <input
               type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              className="w-full py-2 px-3 border-2 border-[#000000] rounded-md text-gray-900 focus:ring-2 focus:ring-[#000000] focus:outline-none "
               required
             />
           </motion.div>
@@ -113,10 +195,16 @@ export function RegisterStudent() {
             <label className="block text-sm font-medium text-gray-700">{t('phone_number')}</label>
             <input
               type="tel"
-              value={phone}
-              onChange={handlePhoneChange}
-              className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
-              pattern="\d{9}"
+              name="phone"
+              value={formData.phone}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^\d{0,9}$/.test(value)) { // Solo números y máximo 9 dígitos
+                  setFormData({ ...formData, phone: value });
+                }
+              }}
+              pattern="[0-9]{9}"
+              className="w-full py-2 px-3 border-2 border-[#000000] rounded-md text-gray-900 focus:ring-2 focus:ring-[#000000] focus:outline-none "
               title={t('phone_validation')}
               required
             />
@@ -131,9 +219,10 @@ export function RegisterStudent() {
             <label className="block text-sm font-medium text-gray-700">{t('email')}</label>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full py-2 px-3 border-2 border-[#000000] rounded-md text-gray-900 focus:ring-2 focus:ring-[#000000] focus:outline-none "
               required
             />
           </motion.div>
@@ -147,9 +236,10 @@ export function RegisterStudent() {
             <label className="block text-sm font-medium text-gray-700">{t('password')}</label>
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md text-gray-900 focus:ring-2 focus:ring-[#F26F63] focus:outline-none "
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full py-2 px-3 border-2 border-[#000000] rounded-md text-gray-900 focus:ring-2 focus:ring-[#000000] focus:outline-none "
               required
             />
           </motion.div>

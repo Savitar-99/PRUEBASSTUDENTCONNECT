@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import LanguageSwitcher from "./components/lenguajeSwitcher/LenguajeSwitcher"; // Importa el componente LanguageSwitcher
 import { useTranslation } from "react-i18next"; // Hook para traducción
 import "../src/i18n";
+import PrivateRoute from "./components/auth/PrivateRoute";
 
 function App() {
   const { t } = useTranslation(); // Hook para traducir textos
@@ -34,8 +35,15 @@ function App() {
               }
             />
             <Route path="/register-student" element={<RegisterStudent />} />
-            <Route path="/student-dashboard" element={<StudentDashboard />} />
-            <Route path="/teacher-dashboard" element={<ProfessorDashboard />} />
+            <Route element={<PrivateRoute allowedRoles={["Estudiante"]} />}>
+              <Route path="/student-dashboard" element={<StudentDashboard />} />
+            </Route>
+            <Route element={<PrivateRoute allowedRoles={["Profesor"]} />}>
+              <Route
+                path="/teacher-dashboard"
+                element={<ProfessorDashboard />}
+              />
+            </Route>
             <Route path="/nosotros" element={<Nosotros />} />
             <Route path="/password-recovery" element={<PasswordRecovery />} />
           </Routes>

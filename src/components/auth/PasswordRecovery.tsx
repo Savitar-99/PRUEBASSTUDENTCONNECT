@@ -107,7 +107,7 @@ export function PasswordRecovery() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full py-2 px-3 border-2 border-[#F26F63] rounded-md"
+              className="w-full py-2 px-3 border-2 border-[#000000] rounded-md text-gray-900 focus:ring-2 focus:ring-[#000000] focus:outline-none "
               required
             />
             <button

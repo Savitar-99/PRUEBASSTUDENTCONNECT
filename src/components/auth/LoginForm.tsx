@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +11,21 @@ export function LoginForm() {
   const navigate = useNavigate(); // Hook para redirigir al perfil
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Verificar si el usuario ya está logado
+    const user = localStorage.getItem("user");
+    if (user) {
+      if(JSON.parse(user).rol.nombreRol === "Profesor")
+      {
+        navigate("/teacher-dashboard");
+      }
+      else if (JSON.parse(user).rol.nombreRol === "Estudiante")
+      {
+        navigate("/student-dashboard");
+      }
+    }
+  }, [navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,9 +41,17 @@ export function LoginForm() {
 
       // Guardar el token JWT en localStorage
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
 
-      // Redirigir al perfil
-      navigate("/student-dashboard"); // Ruta hacia el perfil del usuario
+      // Redirigir al perfil)
+      if(response.data.user.rol.nombreRol === "Profesor")
+      {
+        navigate("/teacher-dashboard");
+      }
+      else if (response.data.user.rol.nombreRol === "Estudiante")
+      {
+        navigate("/student-dashboard"); // Ruta hacia el perfil del usuario
+      }
 
       // Mostrar un toast de éxito
       toast.success(t('loginSuccess'));
