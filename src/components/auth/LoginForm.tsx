@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -28,10 +28,12 @@ export function LoginForm() {
       localStorage.setItem("token", response.data.token);
 
       // Redirigir al perfil
-      navigate("/perfil"); // Ruta hacia el perfil del usuario
+      navigate("/student-dashboard"); // Ruta hacia el perfil del usuario
+
+      // Mostrar un toast de éxito
+      toast.success(t('loginSuccess'));
     } catch (error) {
-      console.error("Error en el login", error);
-      setError("Login fallido, verifica tus credenciales.");
+      toast.error(t('loginError'));
     } finally {
       setLoading(false);
     }
