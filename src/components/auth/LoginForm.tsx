@@ -28,7 +28,7 @@ export function LoginForm() {
       localStorage.setItem("token", response.data.token);
 
       // Redirigir al perfil
-      navigate("/perfil"); // Ruta hacia el perfil del usuario
+      navigate("/student-dashboard"); // Ruta hacia el perfil del usuario
     } catch (error) {
       console.error("Error en el login", error);
       setError("Login fallido, verifica tus credenciales.");
