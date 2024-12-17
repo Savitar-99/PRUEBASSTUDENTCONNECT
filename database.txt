@@ -1,9 +1,5 @@
-jdbc:mysql://127.0.0.1:3306/?user=root
-
-
-
 -- Crear la base de datos
-CREATE DATABASE sistema_academico;
+CREATE DATABASE IF NOT EXISTS sistema_academico;
 USE sistema_academico;
 
 -- Crear tabla rol
@@ -18,9 +14,10 @@ CREATE TABLE persona (
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
     email VARCHAR(150),
+    password VARCHAR(255);
     telefono VARCHAR(15),
-    id_rol INT,
-    FOREIGN KEY (id_rol) REFERENCES rol(id_rol)
+    id_rol INT NOT NULL,
+    FOREIGN KEY (id_rol) REFERENCES rol(id_rol) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Crear tabla asignatura
@@ -39,29 +36,29 @@ CREATE TABLE curso (
 
 -- Crear tabla asignatura_has_curso
 CREATE TABLE asignatura_has_curso (
-    asignatura_id_asignatura INT,
-    curso_id_curso INT,
+    asignatura_id_asignatura INT NOT NULL,
+    curso_id_curso INT NOT NULL,
     PRIMARY KEY (asignatura_id_asignatura, curso_id_curso),
-    FOREIGN KEY (asignatura_id_asignatura) REFERENCES asignatura(id_asignatura),
-    FOREIGN KEY (curso_id_curso) REFERENCES curso(id_curso)
+    FOREIGN KEY (asignatura_id_asignatura) REFERENCES asignatura(id_asignatura) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (curso_id_curso) REFERENCES curso(id_curso) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
+persona
 -- Crear tabla asistencia
 CREATE TABLE asistencia (
     id_asistencia INT AUTO_INCREMENT PRIMARY KEY,
     fecha DATE NOT NULL,
     estado ENUM('Presente', 'Ausente', 'Tarde', 'Justificado') NOT NULL,
-    id_asignatura INT,
-    FOREIGN KEY (id_asignatura) REFERENCES asignatura(id_asignatura)
+    id_asignatura INT NOT NULL,
+    FOREIGN KEY (id_asignatura) REFERENCES asignatura(id_asignatura) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Crear tabla persona_asignatura
 CREATE TABLE persona_asignatura (
-    id_persona INT,
-    id_asignatura INT,
-    asistencia_id_asistencia INT,
+    id_persona INT NOT NULL,
+    id_asignatura INT NOT NULL,
+    asistencia_id_asistencia INT NOT NULL,
     PRIMARY KEY (id_persona, id_asignatura),
-    FOREIGN KEY (id_persona) REFERENCES persona(id_persona),
-    FOREIGN KEY (id_asignatura) REFERENCES asignatura(id_asignatura),
-    FOREIGN KEY (asistencia_id_asistencia) REFERENCES asistencia(id_asistencia)
+    FOREIGN KEY (id_persona) REFERENCES persona(id_persona) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_asignatura) REFERENCES asignatura(id_asignatura) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (asistencia_id_asistencia) REFERENCES asistencia(id_asistencia) ON DELETE CASCADE ON UPDATE CASCADE
 );
