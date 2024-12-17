@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -29,9 +29,11 @@ export function LoginForm() {
 
       // Redirigir al perfil
       navigate("/student-dashboard"); // Ruta hacia el perfil del usuario
+
+      // Mostrar un toast de éxito
+      toast.success(t('loginSuccess'));
     } catch (error) {
-      console.error("Error en el login", error);
-      setError("Login fallido, verifica tus credenciales.");
+      toast.error(t('loginError'));
     } finally {
       setLoading(false);
     }
@@ -57,7 +59,7 @@ export function LoginForm() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block py-2 px-4 w-full rounded-md border-2 border-[#F26F63] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#F26F63] focus:border-[#F26F63] transition-all duration-300"
+            className="mt-1 block py-2 px-4 w-full rounded-md border-2 border-[#000000] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-[#000000] transition-all duration-300"
             required
           />
         </div>
@@ -70,7 +72,7 @@ export function LoginForm() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 py-2 px-4 block w-full rounded-md border-2 border-[#F26F63] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#F26F63] focus:border-[#F26F63] transition-all duration-300"
+            className="mt-1 py-2 px-4 block w-full rounded-md border-2 border-[#000000] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-[#000000] transition-all duration-300"
             required
           />
         </div>
