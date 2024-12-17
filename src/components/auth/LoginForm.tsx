@@ -29,12 +29,9 @@ export function LoginForm() {
 
       // Redirigir al perfil
       navigate("/student-dashboard"); // Ruta hacia el perfil del usuario
-<<<<<<< HEAD
 
       // Mostrar un toast de éxito
       toast.success(t('loginSuccess'));
-=======
->>>>>>> 871c999cb8235388f71e69f1edb865eda38b6d52
     } catch (error) {
       toast.error(t('loginError'));
     } finally {
