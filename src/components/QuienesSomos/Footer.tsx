@@ -44,7 +44,7 @@ export function Footer() {
               <span>Joel Galán</span>
             </a>
             <a
-              href="https://www.linkedin.com/in/tu-perfil-2"
+              href="https://www.linkedin.com/in/lausierrajaramillo/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-[#0077B5] text-white rounded-lg hover:bg-[#006396] transition-all duration-300 hover:scale-105"

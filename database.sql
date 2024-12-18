@@ -9,13 +9,14 @@ USE sistema_academico;
 
 -- Crear tabla rol
 CREATE TABLE rol (
-    id_rol INT AUTO_INCREMENT PRIMARY KEY,
+    id_rol INT PRIMARY KEY NOT NULL,
     nombre_rol VARCHAR(50) NOT NULL
 );
 
 -- Insertar rol (asumir que el rol con id 5 ya existe)
 INSERT INTO rol (id_rol, nombre_rol) 
-VALUES (5, 'Estudiante');
+VALUES (5, 'Profesor');
+VALUES (3, 'Estudiante');
 
 -- Crear tabla persona
 CREATE TABLE persona (
