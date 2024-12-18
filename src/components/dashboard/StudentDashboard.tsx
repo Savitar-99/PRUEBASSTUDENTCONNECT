@@ -6,10 +6,11 @@ import { AcademicGuidance } from '../dashboard/sections/AcademicGuidance';
 import { LogoutButton } from '../dashboard/sections/LogoutButton';
 import { motion } from 'framer-motion'; // Importamos framer-motion
 import { useTranslation } from 'react-i18next'; // Importamos el hook de traducción
+import { User } from '../types'; // Definición del tipo de usuario (importado si se usa un tipo específico)
 
-const mockUser = {
+const mockUser: User = {
   id: '1',
-  role: 'student' as const,
+  role: 'student',
   name: 'Juan',
   lastName: 'García',
   email: 'juan.garcia@ejemplo.com',
@@ -18,9 +19,9 @@ const mockUser = {
 };
 
 const mockAttendances = [
-  { date: '2024-03-01', status: 'present' as const },
-  { date: '2024-03-04', status: 'absent' as const },
-  { date: '2024-03-05', status: 'justified' as const },
+  { date: '2024-03-01', status: 'present' },
+  { date: '2024-03-04', status: 'absent' },
+  { date: '2024-03-05', status: 'justified' },
 ];
 
 const mockSubjects = [
@@ -61,7 +62,7 @@ export const StudentDashboard: React.FC = () => {
               className="w-16 h-auto"
             />
             <h1 className="text-3xl font-bold text-gray-800">
-              {t('welcomeTeacher',)}
+              {t('welcomeTeacher')}
               <span className="text-[#F26F63]">{mockUser.name} {mockUser.lastName}</span>
             </h1>
           </div>
