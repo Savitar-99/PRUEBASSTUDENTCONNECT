@@ -11,6 +11,7 @@ interface FormDataState {
   name: string;
   lastName: string;
   phone: string;
+  school: string;
   image: File | null;
 }
 
@@ -21,6 +22,7 @@ export function RegisterStudent() {
     name: "",
     lastName: "",
     phone: "",
+    school: "",
     image: null,
   });
 
@@ -45,17 +47,17 @@ export function RegisterStudent() {
 
     // Email validation
     if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "El email no es válido";
+      newErrors.email = t('emailInvalid');
     }
 
     // Password validation: mínimo 8 caracteres, al menos 1 número, 1 letra mayúscula
     if (!/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(formData.password)) {
-      newErrors.password = "La contraseña debe tener mínimo 8 caracteres, una mayúscula y un número";
+      newErrors.password = t('password_validation');
     }
 
     // Teléfono validation: solo números, longitud entre 9 y 15
     if (!/^\d{9,15}$/.test(formData.phone)) {
-      newErrors.phone = "El teléfono debe contener entre 9 y 15 dígitos";
+      newErrors.phone = t('phoneInvalid');
     }
 
     setErrors(newErrors);
@@ -78,6 +80,7 @@ export function RegisterStudent() {
     data.append("name", formData.name);
     data.append("lastName", formData.lastName);
     data.append("phone", formData.phone);
+    data.append("school", formData.school);
     if (formData.image) {
       data.append("image", formData.image);
     }
@@ -97,6 +100,7 @@ export function RegisterStudent() {
 
       // Guardar token y redirigir
       localStorage.setItem("token", loginResponse.data.token);
+      localStorage.setItem("user", JSON.stringify(loginResponse.data.user));
       navigate("/student-dashboard");
       // Mostrar un toast de éxito
       toast.success(t('registration_success'));
@@ -205,9 +209,9 @@ export function RegisterStudent() {
               }}
               pattern="[0-9]{9}"
               className="w-full py-2 px-3 border-2 border-[#000000] rounded-md text-gray-900 focus:ring-2 focus:ring-[#000000] focus:outline-none "
-              title={t('phone_validation')}
               required
             />
+            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
           </motion.div>
 
           {/* Email */}
@@ -225,6 +229,7 @@ export function RegisterStudent() {
               className="w-full py-2 px-3 border-2 border-[#000000] rounded-md text-gray-900 focus:ring-2 focus:ring-[#000000] focus:outline-none "
               required
             />
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </motion.div>
 
           {/* Password */}
@@ -238,6 +243,24 @@ export function RegisterStudent() {
               type="password"
               name="password"
               value={formData.password}
+              onChange={handleChange}
+              className="w-full py-2 px-3 border-2 border-[#000000] rounded-md text-gray-900 focus:ring-2 focus:ring-[#000000] focus:outline-none "
+              required
+            />
+            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+          </motion.div>
+
+          {/* School */}
+          <motion.div 
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            <label className="block text-sm font-medium text-gray-700">{t('school')}</label>
+            <input
+              type="tel"
+              name="school"
+              value={formData.school}
               onChange={handleChange}
               className="w-full py-2 px-3 border-2 border-[#000000] rounded-md text-gray-900 focus:ring-2 focus:ring-[#000000] focus:outline-none "
               required

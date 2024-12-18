@@ -1,35 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StudentSearch } from '../dashboard/sections/StudentSearch';
 import { Calendar } from '../dashboard/sections/Calendar';
 import { PerformanceChart } from '../dashboard/sections/PerformanceChart';
 import { UserProfile } from '../dashboard/sections/UserProfile';
 import { AcademicGuidance } from '../dashboard/sections/AcademicGuidance';
 import { LogoutButton } from '../dashboard/sections/LogoutButton';
-import { User } from '../../types';
 import { motion } from 'framer-motion'; // Importamos framer-motion
 import { useTranslation } from 'react-i18next'; // Importamos el hook para traducciones
+import api from '../../services/api';
 
-const mockProfessor: User = {
-  id: 'p1',
-  role: 'professor',
-  name: 'Ana',
-  lastName: 'Martínez',
-  email: 'ana.martinez@ejemplo.com',
-  phone: '+34 987 654 321',
-  school: 'IES Example',
-};
-
-const mockStudents: User[] = [
-  {
-    id: '1',
-    role: 'student',
-    name: 'Juan',
-    lastName: 'García',
-    email: 'juan.garcia@ejemplo.com',
-    phone: '+34 123 456 789',
-    school: 'IES Example',
-  },
-];
+interface Student {
+  id: string;
+  nombre: string;
+  apellido: string;
+  email: string;
+  foto?: string;
+  escuela: string;
+}
 
 const mockAttendances = [
   { date: '2024-03-01', status: 'present' as const },
@@ -62,17 +49,49 @@ const mockGuidancePosts = [
 ];
 
 export const ProfessorDashboard: React.FC = () => {
-  const { t } = useTranslation(); // Hook para las traducciones
-  const [selectedStudent, setSelectedStudent] = useState<User | null>(null);
-  const [filteredStudents, setFilteredStudents] = useState(mockStudents);
+  const { t } = useTranslation();
+  const [students, setStudents] = useState<Student[]>(); // Usamos el hook de traducción
+  const [user, setUser] = useState<any>(); // Estado para almacenar los datos del usuario
+  const [selectedStudent, setSelectedStudent] = useState<any | null>(null);
+  const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const userAux = localStorage.getItem("user");
+    if (userAux) {
+      setUser(JSON.parse(userAux));
+    }
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get('/api/personas/estudiantes');
+      setStudents(response.data);
+      if (students) {
+        setFilteredStudents(students);
+      }
+    } catch (error) {
+      setError('Error al cargar los estudiantes');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!user) {
+    return <div>Loading...</div>; // Puedes mostrar un mensaje mientras se cargan los datos
+  }
 
   const handleSearch = (query: string) => {
-    const filtered = mockStudents.filter(
+    setSelectedStudent(null);
+    const filtered = students?.filter(
       (student) =>
-        student.name.toLowerCase().includes(query.toLowerCase()) ||
-        student.lastName.toLowerCase().includes(query.toLowerCase()) ||
+        student.nombre.toLowerCase().includes(query.toLowerCase()) ||
+        student.apellido.toLowerCase().includes(query.toLowerCase()) ||
         student.email.toLowerCase().includes(query.toLowerCase())
-    );
+    ) || [];
     setFilteredStudents(filtered);
   };
 
@@ -85,16 +104,15 @@ export const ProfessorDashboard: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="flex justify-between items-center mb-8"
         >
-          {/* Contenedor del logo y la bienvenida alineados a la izquierda */}
           <div className="flex items-center space-x-4">
             <img
               src="/assets/logo.png" // Asegúrate de que esta ruta sea correcta
-              alt="Logo de StudentConnect"
-              className="w-16 h-auto" // Tamaño ajustado del logo
+              alt={t('logoAlt')} // Traducción para el alt del logo
+              className="w-16 h-auto"
             />
-            <h1 className="text-3xl font-bold text-studentconnectRed">
-              {t('welcomeTeacher', )}
-              <span className="text-[#F26F63]">{mockProfessor.name} {mockProfessor.lastName}</span>
+            <h1 className="text-3xl font-bold text-gray-800">
+              {t('welcomeTeacher')}
+              <span className="text-[#F26F63]">{user.nombre} {user.apellido}</span>
             </h1>
           </div>
 
@@ -109,7 +127,7 @@ export const ProfessorDashboard: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-8"
         >
-          <UserProfile user={mockProfessor} editable={true} /> {/* Perfil editable del profesor */}
+          <UserProfile user={user} editable={true} /> {/* Perfil editable del profesor */}
         </motion.div>
 
         <motion.div
@@ -122,7 +140,6 @@ export const ProfessorDashboard: React.FC = () => {
             onSearch={handleSearch}
             students={filteredStudents}
             onStudentSelect={setSelectedStudent}
-            placeholder={t('searchStudent')}
           />
         </motion.div>
 
@@ -135,14 +152,13 @@ export const ProfessorDashboard: React.FC = () => {
           >
             <div className="space-y-8">
               <UserProfile user={selectedStudent} />
-              <Calendar attendances={mockAttendances} title={t('attendance')} />
+              <Calendar attendances={mockAttendances}/>
             </div>
 
             <div className="space-y-8">
-              <PerformanceChart subjects={mockSubjects} title={t('performance')} />
+              <PerformanceChart subjects={mockSubjects}/>
               <AcademicGuidance
                 posts={mockGuidancePosts}
-                title={t('guidance')}
                 onAddComment={(postId, content) => console.log('New comment:', postId, content)}
               />
             </div>

@@ -6,10 +6,6 @@ import { AcademicGuidance } from '../dashboard/sections/AcademicGuidance';
 import { LogoutButton } from '../dashboard/sections/LogoutButton';
 import { motion } from 'framer-motion'; // Importamos framer-motion
 import { useTranslation } from 'react-i18next'; // Importamos el hook de traducción
-import axios from 'axios'; // Importamos axios
-
-// Definición del tipo de usuario (importado si se usa un tipo específico)
-import { User } from '../types';
 
 const mockAttendances = [
   { date: '2024-03-01', status: 'present' },
@@ -42,37 +38,14 @@ const mockGuidancePosts = [
 
 export const StudentDashboard: React.FC = () => {
   const { t } = useTranslation(); // Usamos el hook de traducción
-  const [user, setUser] = useState<User | null>(null); // Estado para almacenar los datos del usuario
-
-  function getFromLocalStorage(key: string): string | null {
-    return localStorage.getItem(key);
-  }
+  const [user, setUser] = useState<any>(); // Estado para almacenar los datos del usuario
 
   useEffect(() => {
-    // Función para obtener los datos del usuario desde la API
-    const fetchUserData = async () => {
-      try {
-              // Usar la función para obtener el valor de 'token' desde el localStorage
-        const token = getFromLocalStorage('token');
-        
-        if (!token) {
-          console.log('No se encontró el token en el localStorage');
-        }
-
-        // const token = 'your_auth_token'; // Obtén el token desde el almacenamiento local, contexto, etc.
-        const response = await axios.get('http://localhost:8080/api/personas', {
-          headers: {
-            Authorization: `Bearer ${token}`, // Enviamos el token de autenticación
-          },
-        });
-        setUser(response.data); // Guardamos los datos del usuario en el estado
-      } catch (error) {
-        console.error('Error al obtener los datos del usuario:', error);
-      }
-    };
-
-    fetchUserData(); // Llamamos a la función para obtener los datos
-  }, []); // Este efecto solo se ejecuta una vez cuando el componente se monta
+    const userAux = localStorage.getItem("user");
+    if (userAux) {
+      setUser(JSON.parse(userAux));
+    }
+  }, []);
 
   if (!user) {
     return <div>Loading...</div>; // Puedes mostrar un mensaje mientras se cargan los datos
@@ -91,7 +64,7 @@ export const StudentDashboard: React.FC = () => {
             />
             <h1 className="text-3xl font-bold text-gray-800">
               {t('welcomeTeacher')}
-              <span className="text-[#F26F63]">{user.name} {user.lastName}</span>
+              <span className="text-[#F26F63]">{user.nombre} {user.apellido}</span>
             </h1>
           </div>
 

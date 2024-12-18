@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
-import { User } from '../types';
 import { useTranslation } from 'react-i18next';
 
 interface StudentSearchProps {
   onSearch: (query: string) => void;
-  students: User[];
-  onStudentSelect: (student: User) => void;
+  students: any[];
+  onStudentSelect: (student: any) => void;
 }
 
 export const StudentSearch: React.FC<StudentSearchProps> = ({ onSearch, students, onStudentSelect }) => {
@@ -33,18 +32,18 @@ export const StudentSearch: React.FC<StudentSearchProps> = ({ onSearch, students
         <div className="mt-2 bg-white rounded-lg shadow-lg max-h-60 overflow-y-auto">
           {students.map((student) => (
             <button
-              key={student.id}
+              key={student.idPersona}
               className="w-full px-4 py-2 text-left hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
-              onClick={() => onStudentSelect(student)}
+              onClick={() => {onStudentSelect(student);  setQuery('');} }
             >
               <div className="flex items-center gap-3">
                 <img
-                  src={student.photoUrl || 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&h=400&fit=crop'}
-                  alt={student.name}
+                  src={student.foto != null? `data:image/jpeg;base64,${student.foto}` : '/assets/perfilfoto.webp'}
+                  alt={student.nombre}
                   className="w-8 h-8 rounded-full object-cover"
                 />
                 <div>
-                  <p className="font-medium">{student.name} {student.lastName}</p>
+                  <p className="font-medium">{student.nombre} {student.apellido}</p>
                   <p className="text-sm text-gray-500">{student.email}</p>
                 </div>
               </div>

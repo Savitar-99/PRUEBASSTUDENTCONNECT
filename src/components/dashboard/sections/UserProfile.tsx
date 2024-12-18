@@ -1,60 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import { User } from '../../types';
 import { Phone, Mail, School, Camera } from 'lucide-react';
+import { toast } from 'react-toastify';
+import api from '../../../services/api';
+import { useTranslation } from 'react-i18next';
 
-interface UserProfileProps {
-  user: User;
-  editable?: boolean;
-}
+export const UserProfile: React.FC<any> = ({ user, editable = false }) => {
+  const [loading, setLoading] = useState(false);
+  const { t } = useTranslation(); 
 
-export const UserProfile: React.FC<UserProfileProps> = ({ user, editable = false }) => {
-  const [photo, setPhoto] = useState<string | null>(null);
-
-  // Cargar la foto desde localStorage cuando el componente se monta
-  useEffect(() => {
-    const savedPhoto = localStorage.getItem('userPhoto'); // Recuperar la foto guardada
-    if (savedPhoto) {
-      setPhoto(savedPhoto); // Establecer la foto si existe
-    }
-  }, []);
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       // Crear un URL temporal para la previsualización de la imagen
-      const photoUrl = URL.createObjectURL(file);
-      
-      // Establecer la URL temporal en el estado para mostrar la imagen
-      setPhoto(photoUrl);
-  
-      // Aquí, si quieres subir la imagen a un servidor o almacenamiento en la nube, 
-      // debes realizar esa acción antes de finalizar este proceso.
+      handleChangeFoto(file);
     }
   };
-  
-      // Aquí puedes enviar la ruta a tu backend si lo necesitas       // 
+  const handleChangeFoto = async (file : File) => {
+    setLoading(true);
+    const data = new FormData();
+    data.append("idPersona", user.idPersona);
+    if (file) {
+      data.append("image", file);
+    }
 
-      // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      //   const file = event.target.files?.[0];
-      //   if (file) {
-      //     const reader = new FileReader();
-      //     reader.onload = () => {
-      //       const imageUrl = reader.result as string;
-      //       setPhoto(imageUrl); // Establecer la nueva imagen
+    try {
+      const response = await api.post("http://localhost:8080/api/personas/cambiarFoto", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-      //       // Guardar la URL de la imagen en localStorage para persistencia
-      //       localStorage.setItem('userPhoto', imageUrl);
-      //     };
-      //     reader.readAsDataURL(file);
-      //   }
-      // };
+      // Actualizar la foto del usuario
+      const getPersonaIdResponse = await api.get("http://localhost:8080/api/personas/"+user.idPersona);
+
+      user.foto = getPersonaIdResponse.data.foto;
+      localStorage.setItem("user", JSON.stringify(getPersonaIdResponse.data));
+      // Mostrar un toast de éxito
+      toast.success(t('photo_updated'));
+    } catch (error) {
+      toast.error(t('photo_error'));
+    } finally {
+      setLoading(false);
+    }
+  };
+      
 
       return (
         <div className="bg-white rounded-lg shadow-md p-6 max-w-2xl mx-auto">
           <div className="relative">
             {/* Foto de perfil */}
             <img
-              src={photo || '../assets/perfilfoto.webp'} // Usamos la imagen subida o la predeterminada
-              alt={`${user.name} ${user.lastName}`}
+              src={user.foto != null? `data:image/jpeg;base64,${user.foto}` : '/assets/perfilfoto.webp'} // Usamos la imagen subida o la predeterminada
+              alt={`${user.nombre} ${user.apellido}`}
               className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
             />
 
@@ -80,13 +77,13 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, editable = false
 
           {/* Información del usuario */}
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">
-            {user.name} {user.lastName}
+            {user.nombre} {user.apellido}
           </h2>
 
           <div className="space-y-4">
             <div className="flex items-center gap-3 text-gray-600">
               <Phone size={20} className="text-[#F26F63]" />
-              <span>{user.phone}</span>
+              <span>{user.telefono}</span>
             </div>
 
             <div className="flex items-center gap-3 text-gray-600">
@@ -94,10 +91,10 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user, editable = false
               <span>{user.email}</span>
             </div>
 
-            {user.school && (
+            {user.escuela && (
               <div className="flex items-center gap-3 text-gray-600">
                 <School size={20} className="text-[#F26F63]" />
-                <span>{user.school}</span>
+                <span>{user.escuela}</span>
               </div>
             )}
           </div>
