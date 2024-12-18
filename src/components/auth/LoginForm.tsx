@@ -5,23 +5,22 @@ import { useTranslation } from 'react-i18next';
 import api from "../../services/api.ts";
 
 export function LoginForm() {
-  const { t } = useTranslation(); // Usamos useTranslation para obtener la función t
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // Hook para redirigir al perfil
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   useEffect(() => {
-    // Verificar si el usuario ya está logado
     const user = localStorage.getItem("user");
     if (user) {
-      if(JSON.parse(user).rol.nombreRol === "Profesor")
-      {
+      const parsedUser = JSON.parse(user);
+      if (parsedUser.rol.nombreRol === "Profesor") {
         navigate("/teacher-dashboard");
-      }
-      else if (JSON.parse(user).rol.nombreRol === "Estudiante")
-      {
+      } else if (parsedUser.rol.nombreRol === "Estudiante") {
         navigate("/student-dashboard");
       }
     }
@@ -31,39 +30,32 @@ export function LoginForm() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setEmailError(false);
+    setPasswordError(false);
 
     try {
-      // Petición al backend para login
-      const response = await api.post("/auth/login", {
-        email,
-        password,
-      });
-
-      // Guardar el token JWT en localStorage
+      const response = await api.post("/auth/login", { email, password });
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
 
-      // Redirigir al perfil)
-      if(response.data.user.rol.nombreRol === "Profesor")
-      {
+      if (response.data.user.rol.nombreRol === "Profesor") {
         navigate("/teacher-dashboard");
-      }
-      else if (response.data.user.rol.nombreRol === "Estudiante")
-      {
-        navigate("/student-dashboard"); // Ruta hacia el perfil del usuario
+      } else if (response.data.user.rol.nombreRol === "Estudiante") {
+        navigate("/student-dashboard");
       }
 
-      // Mostrar un toast de éxito
       toast.success(t('loginSuccess'));
     } catch (error) {
       toast.error(t('loginError'));
+      setEmailError(true);
+      setPasswordError(true);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className={`w-full p-8 bg-white rounded-lg shadow-lg transition-all duration-700 opacity-100 translate-y-10`}>
+    <div className="w-full p-8 bg-white rounded-lg shadow-lg transition-all duration-700 opacity-100 translate-y-10">
       <div className="flex flex-col items-center mb-8">
         <img
           src="/assets/logo.png"
@@ -82,7 +74,7 @@ export function LoginForm() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block py-2 px-4 w-full rounded-md border-2 border-[#000000] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-[#000000] transition-all duration-300"
+            className={`mt-1 block py-2 px-4 w-full rounded-md border-2 ${emailError ? 'border-red-500' : 'border-[#000000]'} shadow-sm focus:outline-none focus:ring-2 ${emailError ? 'focus:ring-red-500' : 'focus:ring-[#000000]'} transition-all duration-300`}
             required
           />
         </div>
@@ -95,7 +87,7 @@ export function LoginForm() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 py-2 px-4 block w-full rounded-md border-2 border-[#000000] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-[#000000] transition-all duration-300"
+            className={`mt-1 py-2 px-4 block w-full rounded-md border-2 ${passwordError ? 'border-red-500' : 'border-[#000000]'} shadow-sm focus:outline-none focus:ring-2 ${passwordError ? 'focus:ring-red-500' : 'focus:ring-[#000000]'} transition-all duration-300`}
             required
           />
         </div>
