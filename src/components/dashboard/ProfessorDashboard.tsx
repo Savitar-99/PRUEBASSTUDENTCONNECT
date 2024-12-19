@@ -18,44 +18,76 @@ interface Student {
   escuela: string;
 }
 
-const mockAttendances = [
-  { date: '2024-03-01', status: 'present' as const },
-  { date: '2024-03-04', status: 'absent' as const },
-  { date: '2024-03-05', status: 'justified' as const },
+const getRandomStatus = () => {
+  const statuses = ['present', 'absent', 'justified'];
+  return statuses[Math.floor(Math.random() * statuses.length)];
+};
+
+const getRandomDate = () => {
+  const start = new Date(2024, 9, 1); // 1 de octubre de 2024
+  const end = new Date(2024, 11, 31); // 31 de diciembre de 2024
+  const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+  return date.toISOString().split('T')[0]; // Formato yyyy-mm-dd
+};
+
+const generateRandomAttendances = () => {
+  return Array.from({ length: 20 }, () => ({
+    date: getRandomDate(),
+    status: getRandomStatus()
+  }));
+};
+
+const subjectNames = [
+  'Matemáticas', 'Lengua', 'Historia', 'Ciencias',
+  'Educación Física', 'Arte', 'Música', 'Tecnología',
+  'Geografía', 'Biología'
 ];
 
-const mockSubjects = [
-  { name: 'Matemáticas', level: 4, progress: 85 },
-  { name: 'Lengua', level: 3, progress: 75 },
-  { name: 'Historia', level: 4, progress: 90 },
-];
+const getRandomSubjectName = () => {
+  return subjectNames[Math.floor(Math.random() * subjectNames.length)];
+};
 
-const mockGuidancePosts = [
-  {
-    id: '1',
-    content: 'Me gustaría explorar carreras relacionadas con la tecnología.',
-    date: '2024-03-01',
-    author: 'Juan García',
+const generateRandomSubjects = () => {
+  return Array.from({ length: 5 }, () => ({
+    name: getRandomSubjectName(),
+    level: Math.floor(Math.random() * 5) + 1,
+    progress: Math.floor(Math.random() * 100)
+  }));
+};
+
+const generateRandomGuidancePosts = () => {
+  const contents = [
+    'Me gustaría explorar carreras relacionadas con la tecnología.',
+    'Estoy interesado en ciencias sociales.',
+    '¿Qué opinan sobre estudiar medicina?',
+  ];
+  return contents.map((content, index) => ({
+    id: String(index + 1),
+    content,
+    date: `2024-12-${index + 1}`,
+    author: `Juan García`,
     comments: [
       {
         id: '1',
-        content:
-          'Excelente elección. Con tus calificaciones en matemáticas, podrías considerar Ingeniería Informática.',
+        content: 'Excelente elección.',
         author: 'Prof. Martínez',
-        date: '2024-03-02',
+        date: `2024-12-${index + 2}`,
       },
     ],
-  },
-];
+  }));
+};
 
 export const ProfessorDashboard: React.FC = () => {
   const { t } = useTranslation();
-  const [students, setStudents] = useState<Student[]>(); // Usamos el hook de traducción
+  const [students, setStudents] = useState<Student[] | null>(null); // Usamos el hook de traducción
   const [user, setUser] = useState<any>(); // Estado para almacenar los datos del usuario
   const [selectedStudent, setSelectedStudent] = useState<any | null>(null);
   const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [attendances, setAttendances] = useState(generateRandomAttendances());
+  const [subjects, setSubjects] = useState(generateRandomSubjects());
+  const [guidancePosts, setGuidancePosts] = useState(generateRandomGuidancePosts());
 
   useEffect(() => {
     const userAux = localStorage.getItem("user");
@@ -65,14 +97,20 @@ export const ProfessorDashboard: React.FC = () => {
     fetchStudents();
   }, []);
 
+  useEffect(() => {
+    if (selectedStudent) {
+      setAttendances(generateRandomAttendances());
+      setSubjects(generateRandomSubjects());
+      setGuidancePosts(generateRandomGuidancePosts());
+    }
+  }, [selectedStudent]);
+
   const fetchStudents = async () => {
     try {
       setLoading(true);
       const response = await api.get('/api/personas/estudiantes');
       setStudents(response.data);
-      if (students) {
-        setFilteredStudents(students);
-      }
+      setFilteredStudents(response.data);
     } catch (error) {
       setError('Error al cargar los estudiantes');
     } finally {
@@ -80,7 +118,7 @@ export const ProfessorDashboard: React.FC = () => {
     }
   };
 
-  if (!user) {
+  if (!user || loading) {
     return <div>Loading...</div>; // Puedes mostrar un mensaje mientras se cargan los datos
   }
 
@@ -152,13 +190,13 @@ export const ProfessorDashboard: React.FC = () => {
           >
             <div className="space-y-8">
               <UserProfile user={selectedStudent} />
-              <Calendar attendances={mockAttendances}/>
+              <Calendar attendances={attendances} />
             </div>
 
             <div className="space-y-8">
-              <PerformanceChart subjects={mockSubjects}/>
+              <PerformanceChart subjects={subjects} />
               <AcademicGuidance
-                posts={mockGuidancePosts}
+                posts={guidancePosts}
                 onAddComment={(postId, content) => console.log('New comment:', postId, content)}
               />
             </div>
