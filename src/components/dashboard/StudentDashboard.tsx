@@ -54,12 +54,12 @@ const generateRandomGuidancePosts = () => {
     id: String(index + 1),
     content,
     date: `2024-12-${index + 1}`,
-    author: `Juan García`,
+    author: ``,
     comments: [
       {
         id: '1',
         content: 'Excelente elección.',
-        author: 'Prof. Martínez',
+        author: '',
         date: `2024-12-${index + 2}`,
       },
     ],
