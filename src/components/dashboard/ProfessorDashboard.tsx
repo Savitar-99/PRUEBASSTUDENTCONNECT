@@ -5,8 +5,8 @@ import { PerformanceChart } from '../dashboard/sections/PerformanceChart';
 import { UserProfile } from '../dashboard/sections/UserProfile';
 import { AcademicGuidance } from '../dashboard/sections/AcademicGuidance';
 import { LogoutButton } from '../dashboard/sections/LogoutButton';
-import { motion } from 'framer-motion'; // Importamos framer-motion
-import { useTranslation } from 'react-i18next'; // Importamos el hook para traducciones
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import api from '../../services/api';
 
 interface Student {
@@ -65,12 +65,12 @@ const generateRandomGuidancePosts = () => {
     id: String(index + 1),
     content,
     date: `2024-12-${index + 1}`,
-    author: `Juan García`,
+    author: ``,
     comments: [
       {
         id: '1',
         content: 'Excelente elección.',
-        author: 'Prof. Martínez',
+        author: '',
         date: `2024-12-${index + 2}`,
       },
     ],
@@ -79,8 +79,8 @@ const generateRandomGuidancePosts = () => {
 
 export const ProfessorDashboard: React.FC = () => {
   const { t } = useTranslation();
-  const [students, setStudents] = useState<Student[] | null>(null); // Usamos el hook de traducción
-  const [user, setUser] = useState<any>(); // Estado para almacenar los datos del usuario
+  const [students, setStudents] = useState<Student[]>();
+  const [user, setUser] = useState<any>();
   const [selectedStudent, setSelectedStudent] = useState<any | null>(null);
   const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(false);
@@ -119,7 +119,7 @@ export const ProfessorDashboard: React.FC = () => {
   };
 
   if (!user || loading) {
-    return <div>Loading...</div>; // Puedes mostrar un mensaje mientras se cargan los datos
+    return <div>Loading...</div>;
   }
 
   const handleSearch = (query: string) => {
@@ -144,8 +144,8 @@ export const ProfessorDashboard: React.FC = () => {
         >
           <div className="flex items-center space-x-4">
             <img
-              src="/assets/logo.png" // Asegúrate de que esta ruta sea correcta
-              alt={t('logoAlt')} // Traducción para el alt del logo
+              src="/assets/logo.png"
+              alt={t('logoAlt')}
               className="w-16 h-auto"
             />
             <h1 className="text-3xl font-bold text-gray-800">
@@ -153,19 +153,16 @@ export const ProfessorDashboard: React.FC = () => {
               <span className="text-[#F26F63]">{user.nombre} {user.apellido}</span>
             </h1>
           </div>
-
-          {/* Botón de cerrar sesión alineado a la derecha */}
           <LogoutButton />
         </motion.div>
 
-        {/* Aquí ya no es necesario que esté condicionado por el estudiante */}
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-8"
         >
-          <UserProfile user={user} editable={true} /> {/* Perfil editable del profesor */}
+          <UserProfile user={user} editable={true} />
         </motion.div>
 
         <motion.div
