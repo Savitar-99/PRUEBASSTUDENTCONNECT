@@ -182,7 +182,7 @@ export const ProfessorDashboard: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.5 }}
             className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8"
           >
             <div className="space-y-8">
